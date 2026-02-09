@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server';
-import { getToken } from "next-auth/jwt";
+import { auth } from '@/auth';
 import { query, execute } from '@/lib/db';
 
-// Remove edge runtime for NextAuth compatibility
-// export const runtime = 'edge';
+export const runtime = 'edge';
 
 interface ReviewDB {
     id: string;
@@ -35,12 +34,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-    const token = await getToken({
-        req: request as any,
-        secret: process.env.NEXTAUTH_SECRET || "fallback_secret_for_dev"
-    });
+    const session = await auth();
 
-    if (!token) {
+    if (!session?.user) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -54,8 +50,8 @@ export async function POST(request: Request) {
         const id = Date.now().toString();
         const newReview = {
             id,
-            user_name: token.name || 'Anonymous',
-            user_email: token.email || 'anonymous@example.com',
+            user_name: session.user.name || 'Anonymous',
+            user_email: session.user.email || 'anonymous@example.com',
             rating,
             comment,
             status: 'pending' // Moderate by default
