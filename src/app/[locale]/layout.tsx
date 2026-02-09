@@ -3,6 +3,8 @@ import { Playfair_Display, Lato } from "next/font/google";
 import "../globals.css";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { routing } from '@/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingCart from '@/components/FloatingCart';
@@ -33,6 +35,12 @@ export default async function RootLayout(props: {
   const params = await props.params;
   const { locale } = params;
   const { children } = props;
+
+  // Validate locale
+  if (!routing.locales.includes(locale as any)) {
+    notFound();
+  }
+
   const messages = await getMessages();
 
   return (
