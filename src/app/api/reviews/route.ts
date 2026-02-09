@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import { getToken } from "next-auth/jwt";
 import { query, execute } from '@/lib/db';
 
-export const runtime = 'edge';
+// Remove edge runtime for NextAuth compatibility
+// export const runtime = 'edge';
 
 interface ReviewDB {
     id: string;
