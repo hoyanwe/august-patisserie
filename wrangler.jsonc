@@ -15,8 +15,7 @@
 		{
 			"binding": "august_patisserie_db",
 			"database_name": "august-patisserie-db",
-			"database_id": "5bb5e948-a0a6-403a-88e3-d02feaddce27",
-			"remote": true
+			"database_id": "5bb5e948-a0a6-403a-88e3-d02feaddce27"
 		}
 	],
 	"r2_buckets": [
@@ -26,8 +25,7 @@
 		},
 		{
 			"bucket_name": "august-patisserie-assets",
-			"binding": "august_patisserie_assets",
-			"remote": true
+			"binding": "august_patisserie_assets"
 		}
 	]
 }
