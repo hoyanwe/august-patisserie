@@ -1,9 +1,9 @@
-import { getRequestContext } from '@cloudflare/next-on-pages';
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 export function getBucket() {
     try {
-        const context = getRequestContext();
-        if (context && context.env && context.env.BUCKET) {
+        const context = getCloudflareContext();
+        if (context?.env?.BUCKET) {
             return context.env.BUCKET;
         }
     } catch (e) {

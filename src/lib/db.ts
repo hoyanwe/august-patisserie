@@ -1,4 +1,4 @@
-import { getRequestContext } from '@cloudflare/next-on-pages';
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 export interface Env {
     DB: D1Database;
@@ -7,8 +7,8 @@ export interface Env {
 
 export function getDb() {
     try {
-        const context = getRequestContext();
-        if (context && context.env && context.env.DB) {
+        const context = getCloudflareContext();
+        if (context?.env?.DB) {
             return context.env.DB;
         }
     } catch (e) {
@@ -16,7 +16,7 @@ export function getDb() {
         console.warn('DB context not found, attempting fallback or returning null');
     }
 
-    // In a real next-on-pages setup, the DB is available via the request context.
+    // In a real OpenNext setup, the DB is available via the request context.
     // For local dev without wrangler, this might need a different approach (e.g. better-sqlite3)
     // but for now we assume we're running in a CF-compatible environment.
     return (process.env as any).DB as D1Database;
