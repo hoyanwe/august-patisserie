@@ -1,0 +1,36 @@
+{
+    "categories": [
+        {
+            "id": "cakes",
+            "name": {
+                "en": "Cakes",
+                "zh": "蛋糕"
+            },
+            "slug": "cakes"
+        },
+        {
+            "id": "pastries",
+            "name": {
+                "en": "Pastries",
+                "zh": "点心"
+            },
+            "slug": "pastries"
+        },
+        {
+            "id": "breads",
+            "name": {
+                "en": "Breads",
+                "zh": "面包"
+            },
+            "slug": "breads"
+        },
+        {
+            "id": "cookies",
+            "name": {
+                "en": "Cookies",
+                "zh": "饼干"
+            },
+            "slug": "cookies"
+        }
+    ]
+}

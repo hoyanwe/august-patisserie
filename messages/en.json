@@ -1,0 +1,58 @@
+{
+  "Index": {
+    "title": "August Patisserie",
+    "story": "Our Story",
+    "heroTitle": "Artisan Pastries",
+    "heroSubtitle": "Taste the perfection in every bite",
+    "bestSellersTitle": "Customer Favorites",
+    "bestSellersSubtitle": "Our community's top-rated treats, hand-picked for you.",
+    "viewMenu": "View Full Menu",
+    "heroButton": "Browse Menu"
+  },
+  "Navigation": {
+    "menu": "Menu",
+    "story": "Our Story",
+    "contact": "Contact"
+  },
+  "Menu": {
+    "add": "Add to Order",
+    "title": "Our Menu",
+    "subtitle": "Freshly baked daily with the finest ingredients",
+    "all": "All",
+    "bestSeller": "Best Seller"
+  },
+  "Cart": {
+    "checkout": "Order on WhatsApp",
+    "items": "items"
+  },
+  "Contact": {
+    "title": "Get in Touch",
+    "intro": "We'd love to satisfy your sweet cravings.",
+    "intro2": "Reach out for custom orders, inquiries, or just to say hello.",
+    "whatsappTitle": "WhatsApp & Orders",
+    "instagramTitle": "Follow Our Journey"
+  },
+  "Product": {
+    "backToMenu": "← Back to Menu",
+    "quantity": "Quantity:",
+    "addToOrder": "Add to Order",
+    "addedToOrder": "Added to Order! ✓",
+    "freshnessDisclaimer": "* All our pastries are baked fresh daily."
+  },
+  "Reviews": {
+    "title": "Customer Experiences",
+    "averageRating": "based on {count} reviews",
+    "leaveReview": "Leave a Review",
+    "signInToReview": "Please sign in with Google to leave a review and star rating.",
+    "signInBtn": "Sign in with Google",
+    "thankYou": "Thank you for your review! It will be visible once approved by our team.",
+    "writeAnother": "Write another one",
+    "ratingLabel": "Rating",
+    "thoughtsLabel": "Your thoughts",
+    "placeholder": "Share your experience...",
+    "postingAs": "Posting as {name}",
+    "submitBtn": "Submit Review",
+    "submittingBtn": "Submitting...",
+    "noReviews": "No reviews yet. Be the first to share your experience!"
+  }
+}

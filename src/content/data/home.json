@@ -1,0 +1,15 @@
+{
+  "hero": {
+    "en": {
+      "title": "August Patisserie",
+      "subtitle": "Crafted with Love",
+      "buttonText": "Browse Menu"
+    },
+    "zh": {
+      "title": "August Patisserie",
+      "subtitle": "用心制作",
+      "buttonText": "浏览菜单"
+    }
+  },
+  "heroImage": "/images/hero-kitchen.png"
+}

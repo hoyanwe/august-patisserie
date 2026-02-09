@@ -1,0 +1,24 @@
+{
+  "products": [
+    {
+      "name": {
+        "en": "MALTED DARK CHOCOLATE CUBE",
+        "zh": "麦芽黑巧克力方块"
+      },
+      "price": 35,
+      "category": "cookies",
+      "description": {
+        "en": "Rich cocoa, malty aroma & 70% Dark chocolate, whole grains crunch.",
+        "zh": "浓郁可可，麦芽香气与70%黑巧克力，全谷物脆口。"
+      },
+      "image": "/images/products/1768406638961.jpg",
+      "id": "1768406657308",
+      "isBestSeller": true,
+      "images": [
+        "/images/products/1768406638961.jpg",
+        "/images/products/1768462385238.png",
+        "/images/products/1768462388618.png"
+      ]
+    }
+  ]
+}

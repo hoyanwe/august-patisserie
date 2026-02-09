@@ -1,0 +1,102 @@
+:root {
+  /* Pastel Core Palette */
+  --color-cream: #FAF7F2;
+  --color-pink: #FFB7B2;
+  --color-green: #E2F0CB;
+  --color-blue: #C7CEEA;
+  --color-peach: #FFDAC1;
+  --color-lavender: #E0BBE4;
+
+  /* Text & Structure */
+  --color-text-main: #4A4A4A;
+  --color-text-light: #7A7A7A;
+  --color-white: #FFFFFF;
+  --color-border: #E5E5E5;
+
+  /* Pastel Aliases (Fix for Admin Dashboard) */
+  --pastel-purple: var(--color-lavender);
+  --pastel-blue: var(--color-blue);
+  --pastel-pink: var(--color-pink);
+  --pastel-red: #ff9999;
+  /* Soft pastel red */
+  --color-santorini-blue: #0077C8;
+  /* Classic Aegean Blue */
+  --color-santorini-white: #FCFCFC;
+  /* Bright White */
+
+  /* Button Variables */
+  --color-btn-primary-bg: var(--color-pink);
+  --color-btn-primary-text: var(--color-text-main);
+
+  /* Typography (Will be assigned by Next.js font loader) */
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-lato);
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --maxWidth: 1200px;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body,
+:root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-text-main);
+  font-family: var(--font-body), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), serif;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Utilities */
+.container {
+  max-width: var(--maxWidth);
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: opacity 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--color-pink);
+  color: white;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}

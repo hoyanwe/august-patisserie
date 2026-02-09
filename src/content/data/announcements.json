@@ -1,0 +1,18 @@
+[
+    {
+        "id": "1",
+        "text": {
+            "en": "Free Delivery for orders above RM150",
+            "zh": "订单满 RM150 即可享受免费送货"
+        },
+        "active": true
+    },
+    {
+        "id": "2",
+        "text": {
+            "en": "Pre-order now for Chinese New Year!",
+            "zh": "现在就开始预订农历新年礼品！"
+        },
+        "active": true
+    }
+]

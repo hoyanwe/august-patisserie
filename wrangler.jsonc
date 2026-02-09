@@ -1,0 +1,22 @@
+{
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "august-patisserie",
+    "compatibility_date": "2024-11-01",
+    "compatibility_flags": [
+        "nodejs_compat"
+    ],
+    "pages_build_output_dir": ".next",
+    "d1_databases": [
+        {
+            "binding": "DB",
+            "database_name": "august-patisserie-db",
+            "database_id": "REPLACE_WITH_ID_OR_LEAVE_FOR_LOCAL"
+        }
+    ],
+    "r2_buckets": [
+        {
+            "binding": "BUCKET",
+            "bucket_name": "august-patisserie-assets"
+        }
+    ]
+}

@@ -1,0 +1,58 @@
+{
+    "Navigation": {
+        "menu": "菜单",
+        "story": "我们的故事",
+        "contact": "联系我们"
+    },
+    "Index": {
+        "title": "August Patisserie",
+        "story": "我们的故事",
+        "heroTitle": "手工糕点",
+        "heroSubtitle": "用心制作",
+        "bestSellersTitle": "顾客最爱",
+        "bestSellersSubtitle": "社区评分最高的美味，为您精心挑选。",
+        "viewMenu": "查看完整菜单",
+        "heroButton": "浏览菜单"
+    },
+    "Menu": {
+        "add": "加入订单",
+        "title": "我们的菜单",
+        "subtitle": "每日新鲜烘焙，采用最优质的原料",
+        "all": "全部",
+        "bestSeller": "畅销款"
+    },
+    "Cart": {
+        "checkout": "通过 WhatsApp 订购",
+        "items": "项"
+    },
+    "Contact": {
+        "title": "联系我们",
+        "intro": "我们很乐意满足您对甜品的渴望。",
+        "intro2": "欢迎联系我们定制订单、咨询或打个招呼。",
+        "whatsappTitle": "WhatsApp 与订单",
+        "instagramTitle": "关注我们的旅程"
+    },
+    "Product": {
+        "backToMenu": "← 返回菜单",
+        "quantity": "数量：",
+        "addToOrder": "加入订单",
+        "addedToOrder": "已加入订单！✓",
+        "freshnessDisclaimer": "* 我们所有的糕点都是每天新鲜烘焙的。"
+    },
+    "Reviews": {
+        "title": "顾客评价",
+        "averageRating": "基于 {count} 条评价",
+        "leaveReview": "发表评价",
+        "signInToReview": "请使用 Google 登录以发表评价和星级评分。",
+        "signInBtn": "使用 Google 登录",
+        "thankYou": "感谢您的评价！经我们团队审核后，它将显示出来。",
+        "writeAnother": "再写一条",
+        "ratingLabel": "评分",
+        "thoughtsLabel": "您的心得",
+        "placeholder": "分享您的体验...",
+        "postingAs": "以 {name} 的身份发布",
+        "submitBtn": "提交评价",
+        "submittingBtn": "正在提交...",
+        "noReviews": "目前还没有评价。快来分享您的第一条体验吧！"
+    }
+}

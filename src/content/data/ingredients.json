@@ -1,0 +1,74 @@
+[
+  {
+    "id": "1",
+    "name": {
+      "en": "Premium French Butter",
+      "zh": "顶级法国黄油"
+    },
+    "description": {
+      "en": "Rich and creamy imported butter, ensuring a melt-in-your-mouth texture.",
+      "zh": "浓郁柔滑的进口黄油，确保入口即化的口感。"
+    },
+    "image": "/images/products/1770218898793.png"
+  },
+  {
+    "id": "2",
+    "name": {
+      "en": "High Protein Flour",
+      "zh": "高筋面粉"
+    },
+    "description": {
+      "en": "Unbleached, high-protein flour for the perfect pastry structure.",
+      "zh": "未经漂白的高筋面粉，打造完美的糕点结构。"
+    },
+    "image": "/images/products/1770219965597.png"
+  },
+  {
+    "id": "3",
+    "name": {
+      "en": "70% Dark Chocolate",
+      "zh": "70% 黑巧克力"
+    },
+    "description": {
+      "en": "Sustainably sourced dark chocolate with deep cocoa notes for our signature ganache.",
+      "zh": "可持续来源的黑巧克力，带有深沉的可可风味，用于我们的招牌甘那许。"
+    },
+    "image": "/images/products/1770219969771.png"
+  },
+  {
+    "id": "4",
+    "name": {
+      "en": "Fresh Eggs",
+      "zh": "新鲜鸡蛋"
+    },
+    "description": {
+      "en": "Farm-fresh, free-range eggs that lend our sponge cakes a signature golden hue and airy fluffiness.",
+      "zh": "农场新鲜的散养鸡蛋，为我们的海绵蛋糕带来招牌的金黄色泽和轻盈蓬松感。"
+    },
+    "image": "/images/products/1770219945374.png"
+  },
+  {
+    "id": "5",
+    "name": {
+      "en": "Fresh Fruits",
+      "zh": "新鲜水果"
+    },
+    "description": {
+      "en": "Sun-ripened, locally sourced fruits.",
+      "zh": "阳光下成熟的当地水果。"
+    },
+    "image": "/images/products/1770219932988.png"
+  },
+  {
+    "id": "6",
+    "name": {
+      "en": "Pure & Honest",
+      "zh": "纯净与诚实"
+    },
+    "description": {
+      "en": "Crafted without any artificial preservatives, ensuring every bite stays true to its natural, wholesome flavors. ",
+      "zh": "不含任何人工防腐剂，确保每一口都保持天然、健康的原始风味。"
+    },
+    "image": "/images/products/1770219910595.png"
+  }
+]
