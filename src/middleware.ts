@@ -2,8 +2,6 @@ import createMiddleware from 'next-intl/middleware';
 import { routing } from './navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
-export const runtime = 'edge';
-
 const intlMiddleware = createMiddleware(routing);
 
 export default function middleware(request: NextRequest) {
