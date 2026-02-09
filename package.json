@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npx @cloudflare/next-on-pages@latest",
+    "build": "next build",
+    "pages:build": "npx @cloudflare/next-on-pages@latest",
     "start": "next start",
     "lint": "next lint",
     "sync:instagram": "node scripts/sync-instagram.mjs"
