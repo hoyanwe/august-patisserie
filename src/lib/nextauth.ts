@@ -3,10 +3,11 @@ import GoogleProvider from "next-auth/providers/google";
 
 const googleClientId = process.env.GOOGLE_CLIENT_ID;
 const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
+const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build';
 
 export const authOptions: NextAuthOptions = {
     providers: [
-        ...(googleClientId && googleClientSecret ? [
+        ...(googleClientId && googleClientSecret && !isBuildPhase ? [
             GoogleProvider({
                 clientId: googleClientId,
                 clientSecret: googleClientSecret,
