@@ -2,7 +2,6 @@ import { getTranslations } from 'next-intl/server';
 import FilterableProductGrid from '@/components/FilterableProductGrid';
 import { query } from '@/lib/db';
 
-export const runtime = 'edge';
 
 interface Product {
     id: string;

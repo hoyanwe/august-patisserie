@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { query, execute } from '@/lib/db';
 
-export const runtime = 'edge';
 
 interface ReviewDB {
     id: string;

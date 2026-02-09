@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { checkAuth } from '@/lib/auth';
 import { uploadToR2 } from '@/lib/storage';
 
-export const runtime = 'edge';
 
 export async function POST(request: Request) {
     const isAuth = await checkAuth();

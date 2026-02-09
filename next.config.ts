@@ -1,4 +1,5 @@
 import createNextIntlPlugin from 'next-intl/plugin';
+import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -6,3 +7,5 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig = {};
 
 export default withNextIntl(nextConfig);
+
+initOpenNextCloudflareForDev();

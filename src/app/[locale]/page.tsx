@@ -5,7 +5,6 @@ import BestSellers from '@/components/BestSellers';
 import ReviewSection from '@/components/ReviewSection';
 import { query } from '@/lib/db';
 
-export const runtime = 'edge';
 
 // Define interface for Home Data
 interface HomeData {

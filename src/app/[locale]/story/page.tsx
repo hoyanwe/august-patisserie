@@ -1,7 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { query } from '@/lib/db';
 
-export const runtime = 'edge';
 
 interface StoryData {
     en: {

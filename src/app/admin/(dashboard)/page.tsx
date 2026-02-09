@@ -1,7 +1,6 @@
 import DashboardActions from '@/components/admin/DashboardActions';
 import { query } from '@/lib/db';
 
-export const runtime = 'edge';
 
 export default async function AdminDashboard() {
     // Fetch statistics from D1

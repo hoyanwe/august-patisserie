@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { checkAuth } from '@/lib/auth';
 import { query, execute } from '@/lib/db';
 
-export const runtime = 'edge';
 
 interface AnnouncementDB {
     id: string;

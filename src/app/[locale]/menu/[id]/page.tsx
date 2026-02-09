@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 import { query } from '@/lib/db';
 import ProductDetail from '@/components/ProductDetail';
 
-export const runtime = 'edge';
 
 interface ProductDB {
     id: string;
