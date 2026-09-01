@@ -17,6 +17,9 @@ interface Product {
         en: string;
         zh: string;
     };
+    isBestSeller?: boolean;
+    isActive?: boolean;
+    images?: string[];
 }
 
 interface Category {
@@ -61,6 +64,29 @@ export default function ProductsPage() {
             setProducts(products.filter(p => p.id !== id));
         } catch (error) {
             alert('Failed to delete product');
+        }
+    };
+
+    const [toggling, setToggling] = useState<string | null>(null);
+
+    const toggleActive = async (product: Product) => {
+        const next = !(product.isActive !== false);
+        setToggling(product.id);
+        try {
+            const res = await fetch(`/api/admin/products/${product.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...product, isActive: next }),
+            });
+            if (!res.ok) {
+                alert('Failed to update status (' + res.status + ')');
+                return;
+            }
+            setProducts(products.map(p => p.id === product.id ? { ...p, isActive: next } : p));
+        } catch {
+            alert('Failed to update status');
+        } finally {
+            setToggling(null);
         }
     };
 
@@ -121,6 +147,7 @@ export default function ProductsPage() {
                                 <th style={{ padding: '1rem', textAlign: 'left', fontWeight: '600' }}>Name</th>
                                 <th style={{ padding: '1rem', textAlign: 'left', fontWeight: '600' }}>Category</th>
                                 <th style={{ padding: '1rem', textAlign: 'left', fontWeight: '600' }}>Price</th>
+                                <th style={{ padding: '1rem', textAlign: 'left', fontWeight: '600' }}>Status</th>
                                 <th style={{ padding: '1rem', textAlign: 'right', fontWeight: '600' }}>Actions</th>
                             </tr>
                         </thead>
@@ -144,6 +171,34 @@ export default function ProductsPage() {
                                     </td>
                                     <td style={{ padding: '1rem', fontWeight: '600', color: 'var(--pastel-purple)' }}>
                                         RM {product.price.toFixed(2)}
+                                    </td>
+                                    <td style={{ padding: '1rem' }}>
+                                        {(() => {
+                                            const active = product.isActive !== false;
+                                            return (
+                                                <button
+                                                    onClick={() => toggleActive(product)}
+                                                    disabled={toggling === product.id}
+                                                    title={active ? 'Click to hide from the store' : 'Click to show on the store'}
+                                                    style={{
+                                                        display: 'inline-flex',
+                                                        alignItems: 'center',
+                                                        gap: '0.4rem',
+                                                        padding: '0.4rem 0.85rem',
+                                                        borderRadius: '20px',
+                                                        border: '1px solid',
+                                                        borderColor: active ? '#7bc47f' : '#d0d0d0',
+                                                        background: active ? '#e8f5e9' : '#f1f1f1',
+                                                        color: active ? '#2e7d32' : '#777',
+                                                        fontSize: '0.8rem',
+                                                        fontWeight: 600,
+                                                        cursor: toggling === product.id ? 'wait' : 'pointer',
+                                                    }}
+                                                >
+                                                    {active ? '🟢 Active' : '⚪ Hidden'}
+                                                </button>
+                                            );
+                                        })()}
                                     </td>
                                     <td style={{ padding: '1rem', textAlign: 'right' }}>
                                         <a

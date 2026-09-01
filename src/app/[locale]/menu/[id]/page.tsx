@@ -19,7 +19,8 @@ export default async function ProductPage({ params }: Props) {
         console.error('Error fetching product from D1:', error);
     }
 
-    if (!product) {
+    // Hidden (deactivated) products are not reachable on the storefront.
+    if (!product || !product.isActive) {
         notFound();
     }
 

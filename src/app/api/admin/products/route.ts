@@ -10,6 +10,7 @@ interface ProductInput {
     category: string;
     description: { en: string; zh: string };
     isBestSeller: boolean;
+    isActive?: boolean;
     image: string;
     images: string[];
 }
@@ -58,8 +59,8 @@ export async function POST(request: Request) {
 
         await batch(db => [
             db.prepare(
-                `INSERT INTO products (id, name_en, name_zh, price, category_id, description_en, description_zh, is_best_seller, main_image)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                `INSERT INTO products (id, name_en, name_zh, price, category_id, description_en, description_zh, is_best_seller, is_active, main_image)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             ).bind(
                 id,
                 body.name.en,
@@ -69,6 +70,7 @@ export async function POST(request: Request) {
                 body.description?.en ?? '',
                 body.description?.zh ?? '',
                 body.isBestSeller ? 1 : 0,
+                body.isActive === false ? 0 : 1, // default active
                 body.image ?? '',
             ),
             ...images.map((url, i) =>

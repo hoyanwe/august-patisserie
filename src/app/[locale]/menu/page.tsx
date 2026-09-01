@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import FilterableProductGrid from '@/components/FilterableProductGrid';
 import { query } from '@/lib/db';
-import { getAllProducts, type Product } from '@/lib/products';
+import { getMenuProducts, type Product } from '@/lib/products';
 
 // Always reflect live D1 data (never a stale build-time snapshot).
 export const dynamic = 'force-dynamic';
@@ -19,7 +19,7 @@ export default async function MenuPage({ params }: { params: Promise<{ locale: s
     // Fetch products from D1 (shared query/mapper keeps isBestSeller + image order correct).
     let products: Product[] = [];
     try {
-        products = await getAllProducts();
+        products = await getMenuProducts();
     } catch (error) {
         console.error('Failed to fetch products from D1:', error);
     }

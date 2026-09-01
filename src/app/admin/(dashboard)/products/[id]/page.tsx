@@ -35,6 +35,7 @@ export default function ProductFormPage() {
         image: '', // Keep for backward compatibility/main image
         images: [] as string[], // Array for multiple images
         isBestSeller: false,
+        isActive: true,
     });
     const [activeTab, setActiveTab] = useState<'en' | 'zh'>('en');
     const [categories, setCategories] = useState<Category[]>([]);
@@ -63,7 +64,7 @@ export default function ProductFormPage() {
     const fetchProduct = async () => {
         try {
             const res = await fetch(`/api/admin/products/${productId}`);
-            const product = await res.json() as { name: string | { en: string; zh: string }; description: string | { en: string; zh: string }; price: number; category: string; image?: string; images?: string[]; isBestSeller?: boolean };
+            const product = await res.json() as { name: string | { en: string; zh: string }; description: string | { en: string; zh: string }; price: number; category: string; image?: string; images?: string[]; isBestSeller?: boolean; isActive?: boolean };
             // Handle legacy data where images might not exist
             const images = product.images || (product.image ? [product.image] : []);
 
@@ -83,6 +84,7 @@ export default function ProductFormPage() {
                 image: product.image ?? '',
                 images: images,
                 isBestSeller: product.isBestSeller || false,
+                isActive: product.isActive !== false,
             });
         } catch (error) {
             console.error('Failed to fetch product:', error);
@@ -288,6 +290,22 @@ export default function ProductFormPage() {
                             ))}
                         </select>
                     </div>
+                </div>
+
+                <div style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <input
+                        type="checkbox"
+                        id="isActive"
+                        checked={formData.isActive}
+                        onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                        style={{ width: '1.2rem', height: '1.2rem', cursor: 'pointer' }}
+                    />
+                    <label htmlFor="isActive" style={{ fontWeight: '600', cursor: 'pointer', color: 'var(--text-primary)' }}>
+                        🟢 Active (visible on the store)
+                    </label>
+                    <p style={{ fontSize: '0.85rem', color: '#888', margin: 0 }}>
+                        Uncheck to hide this product from the storefront without deleting it.
+                    </p>
                 </div>
 
                 <div style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>

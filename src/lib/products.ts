@@ -7,6 +7,7 @@ export interface Product {
     category: string;
     description: { en: string; zh: string };
     isBestSeller: boolean;
+    isActive: boolean;
     image: string;
     images: string[];
 }
@@ -20,6 +21,7 @@ export interface ProductRow {
     description_en: string;
     description_zh: string;
     is_best_seller: number;
+    is_active?: number;
     main_image: string;
     images_list?: string | null;
 }
@@ -41,11 +43,14 @@ export function mapProductRow(row: ProductRow): Product {
         category: row.category_id,
         description: { en: row.description_en, zh: row.description_zh },
         isBestSeller: row.is_best_seller === 1,
+        // Treat NULL/undefined (pre-migration rows) as active.
+        isActive: row.is_active !== 0,
         image: row.main_image,
         images: row.images_list ? row.images_list.split(IMAGE_SEP) : [],
     };
 }
 
+/** All products including hidden ones — for the admin dashboard only. */
 export async function getAllProducts(): Promise<Product[]> {
     const rows = await query<ProductRow>(
         `SELECT p.*, ${IMAGES_SUBQUERY} FROM products p ORDER BY p.id DESC`,
@@ -53,9 +58,17 @@ export async function getAllProducts(): Promise<Product[]> {
     return rows.map(mapProductRow);
 }
 
+/** Only active products — for the public storefront menu. */
+export async function getMenuProducts(): Promise<Product[]> {
+    const rows = await query<ProductRow>(
+        `SELECT p.*, ${IMAGES_SUBQUERY} FROM products p WHERE p.is_active = 1 ORDER BY p.id DESC`,
+    );
+    return rows.map(mapProductRow);
+}
+
 export async function getBestSellers(): Promise<Product[]> {
     const rows = await query<ProductRow>(
-        `SELECT p.*, ${IMAGES_SUBQUERY} FROM products p WHERE p.is_best_seller = 1 ORDER BY p.id DESC`,
+        `SELECT p.*, ${IMAGES_SUBQUERY} FROM products p WHERE p.is_best_seller = 1 AND p.is_active = 1 ORDER BY p.id DESC`,
     );
     return rows.map(mapProductRow);
 }

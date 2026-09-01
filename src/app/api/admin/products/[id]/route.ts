@@ -10,6 +10,7 @@ interface ProductInput {
     category: string;
     description: { en: string; zh: string };
     isBestSeller: boolean;
+    isActive?: boolean;
     image: string;
     images: string[];
 }
@@ -73,7 +74,7 @@ export async function PUT(
             db.prepare(
                 `UPDATE products SET
                     name_en = ?, name_zh = ?, price = ?, category_id = ?,
-                    description_en = ?, description_zh = ?, is_best_seller = ?, main_image = ?
+                    description_en = ?, description_zh = ?, is_best_seller = ?, is_active = ?, main_image = ?
                  WHERE id = ?`,
             ).bind(
                 body.name.en,
@@ -83,6 +84,7 @@ export async function PUT(
                 body.description?.en ?? '',
                 body.description?.zh ?? '',
                 body.isBestSeller ? 1 : 0,
+                body.isActive === false ? 0 : 1, // default active
                 body.image ?? '',
                 id,
             ),
