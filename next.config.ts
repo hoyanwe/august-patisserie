@@ -4,7 +4,9 @@ import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
 const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+    serverExternalPackages: ['@swc/core'],
+};
 
 export default withNextIntl(nextConfig);
 

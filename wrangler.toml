@@ -1,6 +1,13 @@
 name = "august-patisserie"
-compatibility_date = "2024-11-01"
-compatibility_flags = ["nodejs_compat"]
+main = ".open-next/worker.js"
+# Matches the compatibility_date the installed @opennextjs/cloudflare adapter is
+# tested against (its scaffold template ships 2025-12-01).
+compatibility_date = "2025-12-01"
+compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
 
 [[d1_databases]]
 binding = "DB"
@@ -11,5 +18,15 @@ database_id = "5bb5e948-a0a6-403a-88e3-d02feaddce27"
 binding = "BUCKET"
 bucket_name = "august-patisserie-assets"
 
+[[r2_buckets]]
+binding = "NEXT_INC_CACHE_R2_BUCKET"
+bucket_name = "august-patisserie-assets"
+
+[[services]]
+binding = "WORKER_SELF_REFERENCE"
+service = "august-patisserie"
+
 [observability]
 enabled = true
+# Sample 10% of invocations instead of ingesting (and billing) 100% of logs.
+head_sampling_rate = 0.1

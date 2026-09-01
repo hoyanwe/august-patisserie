@@ -5,17 +5,21 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "prebuild": "node scripts/patch-node-modules.mjs",
+    "preview": "npm run prebuild && opennextjs-cloudflare build --openNextConfigPath ./open-next.config.ts && opennextjs-cloudflare preview",
+    "deploy": "npm run prebuild && opennextjs-cloudflare build --openNextConfigPath ./open-next.config.ts && opennextjs-cloudflare deploy",
     "start": "next start",
-    "lint": "next lint",
-    "sync:instagram": "node scripts/sync-instagram.mjs"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:migrate": "wrangler d1 migrations apply august-patisserie-db --remote",
+    "db:migrate:local": "wrangler d1 migrations apply august-patisserie-db --local"
   },
   "dependencies": {
     "next": "16.1.1",
     "next-auth": "^5.0.0-beta.30",
     "next-intl": "^4.7.0",
-    "puppeteer": "^24.34.0",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
@@ -27,7 +31,8 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
-    "typescript": "^5",
+    "typescript": "5.9.3",
+    "vitest": "^3.2.7",
     "wrangler": "^4.63.0"
   }
 }
