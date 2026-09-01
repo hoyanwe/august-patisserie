@@ -62,9 +62,26 @@ export default function ProductCard({ product, locale }: { product: Product; loc
 
             <div style={{ padding: '1rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
                 <Link href={`/menu/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                    <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', cursor: 'pointer' }}>{productName}</h3>
+                    <h3 style={{
+                        fontSize: '1.2rem',
+                        marginBottom: '0.5rem',
+                        cursor: 'pointer',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                    }}>{productName}</h3>
                 </Link>
-                <p style={{ color: 'var(--color-text-light)', marginBottom: '1rem', flex: 1 }}>
+                <p style={{
+                    color: 'var(--color-text-light)',
+                    marginBottom: '1rem',
+                    flex: 1,
+                    // Clamp to 3 lines on the grid card; full text shows on the detail page.
+                    display: '-webkit-box',
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                }}>
                     {productDescription}
                 </p>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
