@@ -51,6 +51,9 @@ export default function ReviewSection() {
                 setSubmitted(true);
                 setComment('');
                 setRating(5);
+            } else {
+                const data = await res.json().catch(() => ({})) as { error?: string };
+                alert(data.error || 'Failed to submit review');
             }
         } catch (error) {
             alert('Failed to submit review');
@@ -77,7 +80,7 @@ export default function ReviewSection() {
 
                 {averageRating && (
                     <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                        <div style={{ fontSize: '3rem', fontWeight: 'bold', color: 'var(--color-pink)' }}>{averageRating}</div>
+                        <div style={{ fontSize: '3rem', fontWeight: 'bold', color: 'var(--color-pink-deep)' }}>{averageRating}</div>
                         <div style={{ fontSize: '1.2rem', color: '#ffcc00' }}>
                             {'★'.repeat(Math.round(Number(averageRating)))}{'☆'.repeat(5 - Math.round(Number(averageRating)))}
                         </div>
@@ -124,7 +127,7 @@ export default function ReviewSection() {
                             <p>{t('thankYou')}</p>
                             <button
                                 onClick={() => setSubmitted(false)}
-                                style={{ marginTop: '1rem', color: 'var(--color-pink)', background: 'transparent', border: 'none', cursor: 'pointer' }}
+                                style={{ marginTop: '1rem', color: 'var(--color-pink-deep)', background: 'transparent', border: 'none', cursor: 'pointer' }}
                             >
                                 {t('writeAnother')}
                             </button>
@@ -133,15 +136,27 @@ export default function ReviewSection() {
                         <form onSubmit={handleSubmit}>
                             <div style={{ marginBottom: '1.5rem' }}>
                                 <label style={{ display: 'block', marginBottom: '0.5rem' }}>{t('ratingLabel')}</label>
-                                <div style={{ display: 'flex', gap: '0.5rem', fontSize: '1.5rem' }}>
+                                <div style={{ display: 'flex', gap: '0.5rem', fontSize: '1.5rem' }} role="radiogroup" aria-label={t('ratingLabel')}>
                                     {[1, 2, 3, 4, 5].map((star) => (
-                                        <span
+                                        <button
+                                            type="button"
                                             key={star}
                                             onClick={() => setRating(star)}
-                                            style={{ cursor: 'pointer', color: star <= rating ? '#ffcc00' : '#ddd' }}
+                                            role="radio"
+                                            aria-checked={star === rating}
+                                            aria-label={`${star} / 5`}
+                                            style={{
+                                                cursor: 'pointer',
+                                                color: star <= rating ? '#ffcc00' : '#ddd',
+                                                background: 'none',
+                                                border: 'none',
+                                                padding: 0,
+                                                fontSize: 'inherit',
+                                                lineHeight: 1,
+                                            }}
                                         >
                                             ★
-                                        </span>
+                                        </button>
                                     ))}
                                 </div>
                             </div>
@@ -164,14 +179,14 @@ export default function ReviewSection() {
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: '#888' }}>
-                                    {session.user?.image && <img src={session.user.image} style={{ width: '24px', borderRadius: '50%' }} />}
+                                    {session.user?.image && <img src={session.user.image} alt="" width={24} height={24} style={{ width: '24px', height: '24px', borderRadius: '50%' }} />}
                                     {t('postingAs', { name: session.user?.name || '' })}
                                 </div>
                                 <button
                                     type="submit"
                                     disabled={submitting}
                                     style={{
-                                        background: 'var(--color-pink)',
+                                        background: 'var(--color-pink-deep)',
                                         color: 'white',
                                         border: 'none',
                                         padding: '0.75rem 2rem',
@@ -193,7 +208,7 @@ export default function ReviewSection() {
                         <div key={r.id} style={{ borderBottom: '1px solid #eee', paddingBottom: '2rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                    {r.image && <img src={r.image} style={{ width: '40px', borderRadius: '50%' }} />}
+                                    {r.image && <img src={r.image} alt="" width={40} height={40} style={{ width: '40px', height: '40px', borderRadius: '50%' }} />}
                                     <div>
                                         <div style={{ fontWeight: '600' }}>{r.user}</div>
                                         <div style={{ fontSize: '0.8rem', color: '#aaa' }}>{new Date(r.date).toLocaleDateString()}</div>

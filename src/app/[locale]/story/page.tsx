@@ -1,6 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import { query } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 
 interface StoryData {
     en: {

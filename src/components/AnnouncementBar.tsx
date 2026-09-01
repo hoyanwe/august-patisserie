@@ -20,9 +20,6 @@ export default function AnnouncementBar() {
     const params = useParams();
     const locale = (params?.locale as 'en' | 'zh') || 'en';
 
-    // Hide on admin routes
-    if (pathname?.startsWith('/admin')) return null;
-
     useEffect(() => {
         fetch('/api/admin/announcements')
             .then(res => res.json())
@@ -54,6 +51,8 @@ export default function AnnouncementBar() {
         return () => clearInterval(interval);
     }, [announcements.length]);
 
+    // Hide on admin routes / when empty (after all hooks, to respect hook rules).
+    if (pathname?.startsWith('/admin')) return null;
     if (announcements.length === 0) return null;
 
     const currentText = announcements[currentIndex].text[locale] || announcements[currentIndex].text.en;

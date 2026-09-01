@@ -1,5 +1,6 @@
 import { query } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
 
 interface ContactData {
     en: {

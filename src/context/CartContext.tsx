@@ -21,25 +21,44 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+function isValidItem(x: unknown): x is CartItem {
+    if (!x || typeof x !== 'object') return false;
+    const i = x as Record<string, unknown>;
+    return typeof i.id === 'string'
+        && typeof i.name === 'string'
+        && typeof i.price === 'number' && Number.isFinite(i.price) && i.price >= 0
+        && typeof i.quantity === 'number' && Number.isInteger(i.quantity) && i.quantity > 0;
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
     const [items, setItems] = useState<CartItem[]>([]);
+    const [loaded, setLoaded] = useState(false);
 
     // Load from local storage on mount
     useEffect(() => {
-        const saved = localStorage.getItem('august-cart');
-        if (saved) {
-            try {
-                setItems(JSON.parse(saved));
-            } catch (e) {
-                console.error('Failed to parse cart', e);
+        try {
+            const saved = localStorage.getItem('august-cart');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed)) {
+                    // Hydration-safe one-time load from localStorage (unavailable
+                    // during SSR), so a mount-time setState here is intentional.
+                    // eslint-disable-next-line react-hooks/set-state-in-effect
+                    setItems(parsed.filter(isValidItem));
+                }
             }
+        } catch (e) {
+            console.error('Failed to parse cart', e);
         }
+        setLoaded(true);
     }, []);
 
-    // Save to local storage on change
+    // Save to local storage on change — but only after the initial load, so the
+    // empty initial state cannot overwrite a persisted cart on first mount.
     useEffect(() => {
+        if (!loaded) return;
         localStorage.setItem('august-cart', JSON.stringify(items));
-    }, [items]);
+    }, [items, loaded]);
 
     const addToCart = (newItem: Omit<CartItem, 'quantity'>) => {
         setItems(prev => {

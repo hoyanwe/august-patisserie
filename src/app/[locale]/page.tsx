@@ -1,9 +1,14 @@
 import { getTranslations } from 'next-intl/server';
+import { Link } from '@/navigation';
 import InstagramGallery from '@/components/InstagramGallery';
 import IngredientSpotlight from '@/components/IngredientSpotlight';
 import BestSellers from '@/components/BestSellers';
 import ReviewSection from '@/components/ReviewSection';
 import { query } from '@/lib/db';
+import { getBestSellers } from '@/lib/products';
+
+// Always reflect live D1 data (never a stale build-time snapshot).
+export const dynamic = 'force-dynamic';
 
 
 // Define interface for Home Data
@@ -33,19 +38,6 @@ interface StoryData {
     title: string;
     content: string;
   };
-}
-
-interface ProductDB {
-  id: string;
-  name_en: string;
-  name_zh: string;
-  price: number;
-  category_id: string;
-  description_en: string;
-  description_zh: string;
-  is_best_seller: number;
-  main_image: string;
-  images_list?: string;
 }
 
 interface Props {
@@ -87,27 +79,10 @@ export default async function Home({ params }: Props) {
   const storyTitle = storyData?.[currentLocale]?.title || (currentLocale === 'zh' ? '我们的故事' : 'Our Story');
   const storyContent = storyData?.[currentLocale]?.content || "Coming soon...";
 
-  // Fetch best sellers (products) from D1
-  let bestSellers: any[] = [];
+  // Fetch best sellers (products) from D1 via the shared query/mapper.
+  let bestSellers: Awaited<ReturnType<typeof getBestSellers>> = [];
   try {
-    const results = await query<ProductDB>(`
-        SELECT p.*, GROUP_CONCAT(pi.url) as images_list
-        FROM products p
-        LEFT JOIN product_images pi ON p.id = pi.product_id
-        WHERE p.is_best_seller = 1
-        GROUP BY p.id
-    `);
-
-    bestSellers = results.map(row => ({
-      id: row.id,
-      name: { en: row.name_en, zh: row.name_zh },
-      price: row.price,
-      category: row.category_id,
-      description: { en: row.description_en, zh: row.description_zh },
-      isBestSeller: true,
-      image: row.main_image,
-      images: row.images_list ? row.images_list.split(',') : []
-    }));
+    bestSellers = await getBestSellers();
   } catch (error) {
     console.error('Failed to fetch best sellers from D1:', error);
   }
@@ -166,7 +141,7 @@ export default async function Home({ params }: Props) {
             {heroSubtitle}
           </p>
           <div>
-            <a href="/menu" className="btn hero-btn" style={{
+            <Link href="/menu" className="btn hero-btn" style={{
               background: '#006699',
               color: 'white',
               borderRadius: '50px',
@@ -178,7 +153,7 @@ export default async function Home({ params }: Props) {
               fontWeight: '600'
             }}>
               {heroButton}
-            </a>
+            </Link>
           </div>
         </div>
 
