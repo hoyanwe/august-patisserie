@@ -91,111 +91,147 @@ export default async function Home({ params }: Props) {
 
   return (
     <div style={{ width: '100%', overflowX: 'hidden' }}>
-      {/* Hero Section - Full Width */}
-      <section className="hero-section" style={{
-        position: 'relative',
-        minHeight: '80vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        color: 'white',
-        padding: '2rem 1rem',
-        width: '100%'
-      }}>
-        {/* Background Image with Overlay */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: `url(${heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          zIndex: -1,
-        }}></div>
+      {/* Hero Section — editorial */}
+      <section className="hl-hero">
+        <span className="hl-vside hl-vside-l">AUGUST PATISSERIE · PÂTISSERIE</span>
+        <span className="hl-vside hl-vside-r">HANDCRAFTED · BAKED FRESH DAILY</span>
 
-        {/* Content Box - Glassmorphism */}
-        <div className="hero-content" style={{
-          background: 'rgba(255, 255, 255, 0.85)',
-          backdropFilter: 'blur(12px)',
-          width: '100%',
-          maxWidth: '800px',
-          border: '1px solid rgba(255, 255, 255, 0.9)',
-          boxShadow: '0 20px 40px rgba(0,0,0,0.05)'
-        }}>
-          <h1 className="hero-title" style={{
-            color: '#4a4a4a',
-            fontFamily: 'var(--font-playfair)',
-            letterSpacing: '-1px',
-            lineHeight: '1.1'
-          }}>
-            {heroTitle}
-          </h1>
-          <p className="hero-subtitle" style={{
-            color: '#666',
-            fontFamily: 'var(--font-body)',
-            fontWeight: '400'
-          }}>
-            {heroSubtitle}
-          </p>
-          <div>
-            <Link href="/menu" className="btn hero-btn" style={{
-              background: '#006699',
-              color: 'white',
-              borderRadius: '50px',
-              boxShadow: '0 4px 15px rgba(0, 102, 153, 0.2)',
-              transition: 'all 0.2s',
-              display: 'inline-block',
-              letterSpacing: '1px',
-              textTransform: 'uppercase',
-              fontWeight: '600'
-            }}>
-              {heroButton}
-            </Link>
+        <div className="hl-hero-inner">
+          <div className="hl-arch-wrap">
+            <div className="hl-arch">
+              <img src={heroImage} alt={heroTitle} />
+              <span className="hl-arch-cap">/ {heroTitle} /</span>
+            </div>
+            <div className="hl-badge" aria-hidden="true">
+              <svg viewBox="0 0 200 200" className="hl-badge-svg">
+                <defs>
+                  <path id="hlBadgePath" d="M100,100 m-70,0 a70,70 0 1,1 140,0 a70,70 0 1,1 -140,0" />
+                </defs>
+                <text className="hl-badge-text">
+                  <textPath href="#hlBadgePath" startOffset="0">AUGUST PATISSERIE · PÂTISSERIE · AUGUST PATISSERIE · PÂTISSERIE · </textPath>
+                </text>
+              </svg>
+              <span className="hl-badge-dot" />
+            </div>
           </div>
+
+          <h1 className="hl-headline">{heroSubtitle}</h1>
+
+          <p className="hl-brand">August Patisserie&#8194;｜&#8194;{currentLocale === 'zh' ? '蛋糕 · 甜點 · 禮盒搭配' : 'Cakes · Pastries · Gift Boxes'}</p>
+          <p className="hl-info">{currentLocale === 'zh' ? '手工烘焙 · 每日新鮮 · WhatsApp 訂購' : 'Handcrafted · Baked Fresh Daily · Order via WhatsApp'}</p>
+
+          <Link href="/menu" className="hl-cta">{heroButton}</Link>
         </div>
 
         <style>{`
-          .hero-content {
-            padding: 4rem 3rem;
-            border-radius: 250px 250px 20px 20px;
+          .hl-hero {
+            position: relative;
+            background: #efe9e1;
+            padding: 4.5rem 1.5rem 5rem;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
           }
-          .hero-title {
-            font-size: 4.5rem;
-            margin-bottom: 1rem;
+          .hl-hero-inner {
+            width: 100%;
+            max-width: 640px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
           }
-          .hero-subtitle {
-            font-size: 1.4rem;
-            margin-bottom: 2.5rem;
+          .hl-vside {
+            position: absolute;
+            top: 46%;
+            font-size: 0.62rem;
+            letter-spacing: 0.34em;
+            text-transform: uppercase;
+            color: #b3a99b;
+            white-space: nowrap;
+            writing-mode: vertical-rl;
           }
-          .hero-btn {
-             padding: 1rem 3.5rem;
-             font-size: 0.9rem;
+          .hl-vside-l { left: 1.5rem; transform: translateY(-50%) rotate(180deg); }
+          .hl-vside-r { right: 1.5rem; transform: translateY(-50%); }
+
+          .hl-arch-wrap { position: relative; width: min(80%, 430px); }
+          .hl-arch {
+            position: relative;
+            aspect-ratio: 3 / 4;
+            border-radius: 50% 50% 14px 14px / 46% 46% 14px 14px;
+            overflow: hidden;
+            box-shadow: 0 34px 60px -30px rgba(80,60,40,0.4);
+          }
+          .hl-arch img { width: 100%; height: 100%; object-fit: cover; display: block; }
+          .hl-arch-cap {
+            position: absolute;
+            left: 50%; bottom: 30%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.94);
+            font-family: var(--font-playfair), serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            letter-spacing: 0.01em;
+            text-shadow: 0 2px 14px rgba(0,0,0,0.45);
+            white-space: nowrap;
+          }
+          .hl-badge {
+            position: absolute;
+            top: -5%; right: -11%;
+            width: 118px; height: 118px;
+            border-radius: 50%;
+            background: #f5f1ea;
+            box-shadow: 0 10px 26px -10px rgba(80,60,40,0.35);
+            display: flex; align-items: center; justify-content: center;
+          }
+          .hl-badge-svg { width: 100%; height: 100%; animation: hlspin 20s linear infinite; }
+          .hl-badge-text {
+            font-size: 11px; letter-spacing: 1.4px; fill: #7d7060;
+            text-transform: uppercase; font-family: var(--font-lato), sans-serif;
+          }
+          .hl-badge-dot {
+            position: absolute; width: 7px; height: 7px; border-radius: 50%; background: #3a3129;
           }
 
+          .hl-headline {
+            font-family: var(--font-playfair), serif;
+            font-weight: 500;
+            font-style: italic;
+            color: #8a6a4a;
+            font-size: clamp(2.5rem, 6vw, 4.3rem);
+            line-height: 1.06;
+            letter-spacing: -0.01em;
+            margin: -2.2rem 0 0;
+            position: relative;
+            text-wrap: balance;
+          }
+          .hl-brand { margin: 1.9rem 0 0.35rem; color: #4a4038; font-size: 1rem; letter-spacing: 0.01em; }
+          .hl-info { margin: 0; color: #a99e90; font-size: 0.82rem; letter-spacing: 0.03em; }
+          .hl-cta {
+            margin-top: 2rem;
+            display: inline-block;
+            padding: 0.9rem 2.4rem;
+            border: 1px solid #3a3129;
+            border-radius: 4px;
+            color: #3a3129;
+            text-decoration: none;
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            transition: background .25s ease, color .25s ease;
+          }
+          .hl-cta:hover { background: #3a3129; color: #efe9e1; }
+
+          @keyframes hlspin { to { transform: rotate(360deg); } }
+          @media (prefers-reduced-motion: reduce) { .hl-badge-svg { animation: none; } }
+
           @media (max-width: 768px) {
-            .hero-section {
-               min-height: 60vh !important;
-               padding: 1rem !important;
-            }
-            .hero-content {
-               padding: 2.5rem 1.5rem !important;
-               border-radius: 120px 120px 16px 16px !important;
-            }
-            .hero-title {
-               font-size: 2.5rem !important;
-            }
-            .hero-subtitle {
-               font-size: 1.1rem !important;
-               margin-bottom: 1.5rem !important;
-            }
-            .hero-btn {
-               padding: 0.875rem 2rem !important;
-               width: 100%;
-               max-width: 250px;
-            }
+            .hl-hero { padding: 3rem 1rem 3.5rem; }
+            .hl-vside { display: none; }
+            .hl-arch-wrap { width: 86%; }
+            .hl-badge { width: 88px; height: 88px; right: -4%; top: -4%; }
+            .hl-badge-text { font-size: 10px; letter-spacing: 1px; }
+            .hl-headline { margin-top: -1.6rem; }
+            .hl-arch-cap { font-size: 0.95rem; }
           }
         `}</style>
       </section>
