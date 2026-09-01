@@ -49,11 +49,15 @@ export default function ContactAdminPage() {
         setSaving(true);
 
         try {
-            await fetch('/api/admin/contact', {
+            const res = await fetch('/api/admin/contact', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
+            if (!res.ok) {
+                alert('Failed to update contact page (' + res.status + ')');
+                return;
+            }
             alert('Contact page updated successfully!');
         } catch (error) {
             alert('Failed to update contact page');

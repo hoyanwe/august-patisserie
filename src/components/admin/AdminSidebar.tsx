@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function AdminSidebar() {
     return (
         <aside style={{
@@ -24,7 +26,7 @@ export default function AdminSidebar() {
             </div>
 
             <nav>
-                <a href="/admin" style={{
+                <Link href="/admin" style={{
                     display: 'block',
                     padding: '0.875rem 1.5rem',
                     color: '#333333',
@@ -34,8 +36,8 @@ export default function AdminSidebar() {
                     onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.4)'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}>
                     📊 Dashboard
-                </a>
-                <a href="/admin/products" style={{
+                </Link>
+                <Link href="/admin/products" style={{
                     display: 'block',
                     padding: '0.875rem 1.5rem',
                     color: '#333333',
@@ -45,8 +47,8 @@ export default function AdminSidebar() {
                     onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.4)'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}>
                     🧁 Products
-                </a>
-                <a href="/admin/categories" style={{
+                </Link>
+                <Link href="/admin/categories" style={{
                     display: 'block',
                     padding: '0.875rem 1.5rem',
                     color: '#333333',
@@ -56,8 +58,8 @@ export default function AdminSidebar() {
                     onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.4)'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}>
                     📁 Categories
-                </a>
-                <a href="/admin/story" style={{
+                </Link>
+                <Link href="/admin/story" style={{
                     display: 'block',
                     padding: '0.875rem 1.5rem',
                     color: '#333333',
@@ -67,8 +69,8 @@ export default function AdminSidebar() {
                     onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.4)'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}>
                     📝 Story
-                </a>
-                <a href="/admin/home" style={{
+                </Link>
+                <Link href="/admin/home" style={{
                     display: 'block',
                     padding: '0.875rem 1.5rem',
                     color: '#333333',
@@ -78,8 +80,8 @@ export default function AdminSidebar() {
                     onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.4)'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}>
                     🏠 Home Page
-                </a>
-                <a href="/admin/contact" style={{
+                </Link>
+                <Link href="/admin/contact" style={{
                     display: 'block',
                     padding: '0.875rem 1.5rem',
                     color: '#333333',
@@ -89,9 +91,9 @@ export default function AdminSidebar() {
                     onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.4)'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}>
                     📞 Contact Page
-                </a>
+                </Link>
 
-                <a href="/admin/announcements" style={{
+                <Link href="/admin/announcements" style={{
                     display: 'block',
                     padding: '0.875rem 1.5rem',
                     color: '#333333',
@@ -101,8 +103,8 @@ export default function AdminSidebar() {
                     onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.4)'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}>
                     📢 Announcements
-                </a>
-                <a href="/admin/ingredients" style={{
+                </Link>
+                <Link href="/admin/ingredients" style={{
                     display: 'block',
                     padding: '0.875rem 1.5rem',
                     color: '#333333',
@@ -112,8 +114,8 @@ export default function AdminSidebar() {
                     onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.4)'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}>
                     🥣 Ingredients
-                </a>
-                <a href="/admin/reviews" style={{
+                </Link>
+                <Link href="/admin/reviews" style={{
                     display: 'block',
                     padding: '0.875rem 1.5rem',
                     color: '#333333',
@@ -123,7 +125,7 @@ export default function AdminSidebar() {
                     onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.4)'}
                     onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}>
                     ⭐ Reviews
-                </a>
+                </Link>
 
                 <div style={{ margin: '2rem 1.5rem 0', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.2)' }}>
                     <form action="/api/admin/logout" method="POST">

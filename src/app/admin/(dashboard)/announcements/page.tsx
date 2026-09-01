@@ -43,11 +43,15 @@ export default function AnnouncementsPage() {
     const saveAnnouncements = async (newData: Announcement[]) => {
         setSaving(true);
         try {
-            await fetch('/api/admin/announcements', {
+            const res = await fetch('/api/admin/announcements', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newData),
             });
+            if (!res.ok) {
+                alert('Failed to save (' + res.status + ')');
+                return;
+            }
             setAnnouncements(newData);
         } catch (error) {
             alert('Failed to save');
@@ -222,7 +226,7 @@ export default function AnnouncementsPage() {
 
                 {announcements.length === 0 && (
                     <div style={{ textAlign: 'center', padding: '3rem', color: '#888', background: '#f9f9f9', borderRadius: '12px' }}>
-                        No announcements yet. Click "Add" to create one.
+                        No announcements yet. Click &quot;Add&quot; to create one.
                     </div>
                 )}
             </div>

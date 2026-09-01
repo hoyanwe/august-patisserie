@@ -54,11 +54,15 @@ export default function HomePage() {
         setSaving(true);
 
         try {
-            await fetch('/api/admin/home', {
+            const res = await fetch('/api/admin/home', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
+            if (!res.ok) {
+                alert('Failed to update home page (' + res.status + ')');
+                return;
+            }
             alert('Home page updated successfully!');
         } catch (error) {
             alert('Failed to update home page');

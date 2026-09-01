@@ -1,6 +1,8 @@
 
 'use client';
 
+import Link from 'next/link';
+
 
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
@@ -103,7 +105,12 @@ export default function ProductFormPage() {
                 method: 'POST',
                 body: uploadData,
             });
-            const data = await res.json() as { url: string; error?: string };
+            const data = await res.json() as { url?: string; error?: string };
+
+            if (!res.ok || !data.url) {
+                alert(data.error || 'Upload failed');
+                return;
+            }
 
             // Add new image to array
             const newImages = [...formData.images, data.url];
@@ -412,7 +419,7 @@ export default function ProductFormPage() {
                     >
                         {saving ? 'Saving...' : (isEdit ? 'Update Product' : 'Create Product')}
                     </button>
-                    <a
+                    <Link
                         href="/admin/products"
                         style={{
                             padding: '0.875rem 2rem',
@@ -426,7 +433,7 @@ export default function ProductFormPage() {
                         }}
                     >
                         Cancel
-                    </a>
+                    </Link>
                 </div>
             </form>
         </div>

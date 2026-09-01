@@ -66,13 +66,17 @@ export default function IngredientsPage() {
                 method: 'POST',
                 body: formData,
             });
-            const data = await res.json() as { url: string; error?: string };
+            const data = await res.json() as { url?: string; error?: string };
 
-            if (data.url) {
-                const newIngredients = [...ingredients];
-                newIngredients[index].image = data.url;
-                setIngredients(newIngredients);
+            if (!res.ok || !data.url) {
+                alert(data.error || 'Upload failed');
+                return;
             }
+
+            // Immutable update (no in-place mutation of state objects).
+            setIngredients(prev => prev.map((ing, i) =>
+                i === index ? { ...ing, image: data.url as string } : ing,
+            ));
         } catch (error) {
             alert('Upload failed');
         } finally {
@@ -92,11 +96,15 @@ export default function IngredientsPage() {
     const saveChanges = async () => {
         setSaving(true);
         try {
-            await fetch('/api/admin/ingredients', {
+            const res = await fetch('/api/admin/ingredients', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(ingredients),
             });
+            if (!res.ok) {
+                alert('Failed to save ingredients (' + res.status + ')');
+                return;
+            }
             alert('Ingredients updated successfully!');
         } catch (error) {
             alert('Failed to save ingredients');

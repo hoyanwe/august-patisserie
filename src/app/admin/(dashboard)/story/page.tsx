@@ -43,11 +43,15 @@ export default function StoryPage() {
         setSaving(true);
 
         try {
-            await fetch('/api/admin/story', {
+            const res = await fetch('/api/admin/story', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(story),
             });
+            if (!res.ok) {
+                alert('Failed to update story (' + res.status + ')');
+                return;
+            }
             alert('Story updated successfully!');
         } catch (error) {
             alert('Failed to update story');
