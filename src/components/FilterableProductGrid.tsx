@@ -100,7 +100,7 @@ export default function FilterableProductGrid({ products, categories, locale, tr
                     gap: '2.5rem',
                 }}>
                     {filteredProducts.map((product) => (
-                        <div key={product.id} style={{ position: 'relative' }}>
+                        <div key={product.id} style={{ position: 'relative', height: '100%' }}>
                             <ProductCard product={product} locale={locale} />
                             {product.isBestSeller && (
                                 <div style={{

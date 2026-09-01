@@ -39,7 +39,8 @@ export default function ProductCard({ product, locale }: { product: Product; loc
             overflow: 'hidden',
             backgroundColor: 'white',
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            height: '100%'
         }}>
             {/* Clickable Image Area */}
             <Link href={`/menu/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
