@@ -138,14 +138,29 @@ export default function ProductDetail({ product, locale }: { product: Product; l
                         RM {product.price.toFixed(2)}
                     </p>
 
-                    <p style={{
-                        color: '#555',
-                        lineHeight: '1.8',
-                        marginBottom: '2rem',
-                        fontSize: '1.1rem'
-                    }}>
-                        {productDescription || "No description available."}
-                    </p>
+                    <div className="pd-desc">
+                        {productDescription
+                            ? productDescription.split('\n').map((raw, i) => {
+                                const line = raw.trim();
+                                if (!line) return <div key={i} className="pd-gap" />;
+                                const isHead = line.includes('SHELF LIFE') || line.includes('賞味期') || line.includes('赏味期');
+                                const bar = line.indexOf('｜');
+                                const isFlavor = !isHead && bar > 0 && !line.slice(0, bar).includes(':') && line.length < 90;
+                                if (isHead) return <h4 key={i} className="pd-head">{line}</h4>;
+                                if (isFlavor) {
+                                    const name = line.slice(0, bar).trim();
+                                    const notes = line.slice(bar + 1).trim();
+                                    return (
+                                        <div key={i} className="pd-flavor">
+                                            <span className="pd-flavor-name">{name}</span>
+                                            <span className="pd-flavor-notes">{notes}</span>
+                                        </div>
+                                    );
+                                }
+                                return <p key={i} className="pd-line">{line}</p>;
+                            })
+                            : <p className="pd-line">{t('freshnessDisclaimer')}</p>}
+                    </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
                         <span style={{ fontWeight: '500' }}>{t('quantity')}</span>
@@ -190,6 +205,24 @@ export default function ProductDetail({ product, locale }: { product: Product; l
 
             {/* Responsiveness Helper */}
             <style jsx>{`
+                .pd-desc { margin-bottom: 2rem; }
+                .pd-gap { height: 0.5rem; }
+                .pd-line { color: #555; line-height: 1.8; font-size: 1.05rem; margin: 0 0 0.4rem; }
+                .pd-head {
+                    font-family: var(--font-playfair), serif;
+                    font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase;
+                    color: var(--color-text-main); margin: 1.75rem 0 0.75rem;
+                    padding-bottom: 0.4rem; border-bottom: 1px solid #f0e0e5;
+                }
+                .pd-flavor {
+                    display: flex; flex-direction: column; gap: 0.15rem;
+                    padding: 0.6rem 0.9rem; margin-bottom: 0.5rem;
+                    border-left: 3px solid var(--color-pink);
+                    background: #fdf6f8; border-radius: 0 8px 8px 0;
+                }
+                .pd-flavor-name { font-weight: 700; color: var(--color-text-main); font-size: 1.02rem; }
+                .pd-flavor-notes { color: #777; font-size: 0.92rem; }
+
                 @media (max-width: 768px) {
                     .product-detail-container {
                         padding: 1.5rem !important;
