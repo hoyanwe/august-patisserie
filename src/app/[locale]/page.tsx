@@ -185,7 +185,7 @@ export default async function Home({ params }: Props) {
           }
           .hl-badge-svg { width: 100%; height: 100%; animation: hlspin 22s linear infinite; }
           .hl-badge-text {
-            font-size: 12px; letter-spacing: 2.5px; fill: #7d7060;
+            font-size: 12px; letter-spacing: 4.3px; fill: #7d7060;
             text-transform: uppercase; font-family: var(--font-lato), sans-serif;
           }
           .hl-badge-dot {
@@ -229,7 +229,7 @@ export default async function Home({ params }: Props) {
             .hl-vside { display: none; }
             .hl-arch-wrap { width: 86%; }
             .hl-badge { width: 82px; height: 82px; right: -6%; top: 8%; }
-            .hl-badge-text { font-size: 12px; letter-spacing: 2.5px; }
+            .hl-badge-text { font-size: 12px; letter-spacing: 4.3px; }
             .hl-headline { margin-top: -1.6rem; }
             .hl-arch-cap { font-size: 0.95rem; }
           }
