@@ -108,7 +108,7 @@ export default async function Home({ params }: Props) {
                   <path id="hlBadgePath" d="M100,100 m-70,0 a70,70 0 1,1 140,0 a70,70 0 1,1 -140,0" />
                 </defs>
                 <text className="hl-badge-text">
-                  <textPath href="#hlBadgePath" startOffset="0">AUGUST · PATISSERIE · AUGUST · PATISSERIE · </textPath>
+                  <textPath href="#hlBadgePath" startOffset="0" textLength="439" lengthAdjust="spacing">AUGUST · PATISSERIE · AUGUST · PATISSERIE · </textPath>
                 </text>
               </svg>
               <span className="hl-badge-dot" />
