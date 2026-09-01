@@ -1,4 +1,3 @@
-import { getTranslations } from 'next-intl/server';
 import { query } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
@@ -16,7 +15,6 @@ interface StoryData {
 }
 
 export default async function StoryPage({ params }: { params: Promise<{ locale: string }> }) {
-    const t = await getTranslations('Index');
     const { locale } = await params;
     const currentLocale = (locale === 'zh' ? 'zh' : 'en') as 'en' | 'zh';
 

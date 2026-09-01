@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 
 interface Ingredient {
     id: string;
@@ -30,10 +29,10 @@ export default function IngredientsPage() {
     const fetchIngredients = async () => {
         try {
             const res = await fetch('/api/admin/ingredients');
-            const data = await res.json() as any[];
+            const data = await res.json() as Array<{ id: string; name: string | { en: string; zh: string }; description: string | { en: string; zh: string }; image: string }>;
 
             // Migrate legacy data if necessary and ensure 6 slots
-            const migratedData = data.map((item: any) => ({
+            const migratedData: Ingredient[] = data.map((item) => ({
                 ...item,
                 name: typeof item.name === 'string' ? { en: item.name, zh: '' } : item.name,
                 description: typeof item.description === 'string' ? { en: item.description, zh: '' } : item.description

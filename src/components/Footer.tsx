@@ -1,7 +1,4 @@
-import { useTranslations } from 'next-intl';
-
 export default function Footer() {
-    const t = useTranslations('Index'); // Using Index for title example
 
     return (
         <footer style={{

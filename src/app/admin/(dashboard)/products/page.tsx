@@ -3,7 +3,6 @@
 import Link from 'next/link';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 
 interface Product {
     id: string;
@@ -32,7 +31,6 @@ export default function ProductsPage() {
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState(true);
-    const router = useRouter();
 
     useEffect(() => {
         fetchData();

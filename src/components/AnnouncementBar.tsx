@@ -26,12 +26,12 @@ export default function AnnouncementBar() {
             .then(data => {
                 if (Array.isArray(data)) {
                     // Filter active items and ensure they have text for the current locale or en
-                    const activeItems = data.filter((item: any) => {
+                    const activeItems = data.filter((item: { id: string; active: boolean; text: string | { en: string; zh: string } }) => {
                         const hasText = typeof item.text === 'object'
                             ? (item.text[locale] || item.text.en)
                             : (item.text && item.text.trim().length > 0);
                         return item.active && hasText;
-                    }).map((item: any) => ({
+                    }).map((item: { id: string; active: boolean; text: string | { en: string; zh: string } }) => ({
                         ...item,
                         text: typeof item.text === 'string' ? { en: item.text, zh: '' } : item.text
                     }));

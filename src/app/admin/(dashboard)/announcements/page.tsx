@@ -24,10 +24,10 @@ export default function AnnouncementsPage() {
     const fetchAnnouncements = async () => {
         try {
             const res = await fetch('/api/admin/announcements');
-            const data = await res.json() as any[];
+            const data = await res.json() as Array<{ id: string; text: string | { en: string; zh: string }; active: boolean }>;
 
             // Migrate legacy data if necessary
-            const migratedData = data.map((item: any) => ({
+            const migratedData: Announcement[] = data.map((item) => ({
                 ...item,
                 text: typeof item.text === 'string' ? { en: item.text, zh: '' } : item.text
             }));

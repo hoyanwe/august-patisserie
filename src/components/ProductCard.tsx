@@ -1,7 +1,6 @@
 'use client';
 
 import { useCart } from '@/context/CartContext';
-import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 
 interface Product {
@@ -20,7 +19,6 @@ interface Product {
 
 export default function ProductCard({ product, locale }: { product: Product; locale: string }) {
     const { addToCart } = useCart();
-    const t = useTranslations('Menu');
 
     // Get localized name and description
     const productName = product.name[locale as 'en' | 'zh'] || product.name.en;

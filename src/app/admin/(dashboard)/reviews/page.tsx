@@ -76,7 +76,7 @@ export default function ReviewModerationPage() {
     );
 }
 
-function ReviewCard({ review, onAction }: { review: Review, onAction: any }) {
+function ReviewCard({ review, onAction }: { review: Review, onAction: (id: string, approved: boolean, remove?: boolean) => void }) {
     return (
         <div style={{
             background: 'white',
@@ -90,7 +90,7 @@ function ReviewCard({ review, onAction }: { review: Review, onAction: any }) {
         }}>
             <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                    {review.image && <img src={review.image} style={{ width: '30px', borderRadius: '50%' }} />}
+                    {review.image && <img src={review.image} alt="" style={{ width: '30px', borderRadius: '50%' }} />}
                     <div>
                         <strong>{review.user}</strong> ({review.email})
                         <div style={{ fontSize: '0.75rem', color: '#aaa' }}>{new Date(review.date).toLocaleString()}</div>

@@ -46,6 +46,8 @@ export default function ProductFormPage() {
         if (isEdit) {
             fetchProduct();
         }
+        // Mount-only: fetch category list and, when editing, the product once.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const fetchCategories = async () => {
@@ -61,7 +63,7 @@ export default function ProductFormPage() {
     const fetchProduct = async () => {
         try {
             const res = await fetch(`/api/admin/products/${productId}`);
-            const product = await res.json() as any;
+            const product = await res.json() as { name: string | { en: string; zh: string }; description: string | { en: string; zh: string }; price: number; category: string; image?: string; images?: string[]; isBestSeller?: boolean };
             // Handle legacy data where images might not exist
             const images = product.images || (product.image ? [product.image] : []);
 
@@ -78,7 +80,7 @@ export default function ProductFormPage() {
                 price: product.price.toString(),
                 category: product.category,
                 description: description,
-                image: product.image,
+                image: product.image ?? '',
                 images: images,
                 isBestSeller: product.isBestSeller || false,
             });

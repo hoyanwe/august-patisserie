@@ -32,7 +32,7 @@ export async function PUT(request: Request) {
     }
 
     try {
-        const data = await request.json() as any;
+        const data = await request.json() as Record<string, unknown>;
         await execute(
             "INSERT INTO site_settings (key, value) VALUES ('contact', ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value",
             [JSON.stringify(data)]

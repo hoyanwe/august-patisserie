@@ -25,10 +25,10 @@ const eslintConfig = defineConfig([
         "warn",
         { caughtErrors: "none", argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
-      // Tracked tech-debt, not build blockers:
-      //  - image optimization (migrate <img> → next/image once Cloudflare Images is enabled)
-      //  - progressive typing (replace remaining `any` on request/JSON boundaries)
-      "@next/next/no-img-element": "warn",
+      // Plain <img> is a deliberate choice until Cloudflare Images is enabled and
+      // a next/image migration is validated on Workers (see README). The a11y
+      // alt-text rule stays on. Progressive typing: keep `any` as a warning.
+      "@next/next/no-img-element": "off",
       "@typescript-eslint/no-explicit-any": "warn",
     },
   },

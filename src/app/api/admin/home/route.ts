@@ -36,7 +36,7 @@ export async function PUT(request: Request) {
     }
 
     try {
-        const data = await request.json() as any;
+        const data = await request.json() as Record<string, unknown>;
         await execute(
             "INSERT INTO home_content (id, data) VALUES ('main', ?) ON CONFLICT(id) DO UPDATE SET data = excluded.data",
             [JSON.stringify(data)]

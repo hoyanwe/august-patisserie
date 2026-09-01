@@ -66,7 +66,7 @@ export default async function RootLayout(props: {
   const { children } = props;
 
   // Validate locale
-  if (!routing.locales.includes(locale as any)) {
+  if (!(routing.locales as readonly string[]).includes(locale)) {
     notFound();
   }
 

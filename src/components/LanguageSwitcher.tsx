@@ -1,11 +1,10 @@
 'use client';
 
-import { useLocale, useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
 import { usePathname, useRouter } from '@/navigation';
-import { ChangeEvent, useTransition } from 'react';
+import { useTransition } from 'react';
 
 export default function LanguageSwitcher() {
-    const t = useTranslations('Navigation'); // Potentially use general strings
     const locale = useLocale();
     const router = useRouter();
     const pathname = usePathname();
