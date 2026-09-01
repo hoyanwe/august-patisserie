@@ -143,16 +143,19 @@ export default function ProductDetail({ product, locale }: { product: Product; l
                             ? productDescription.split('\n').map((raw, i) => {
                                 const line = raw.trim();
                                 if (!line) return <div key={i} className="pd-gap" />;
-                                const isHead = line.includes('SHELF LIFE') || line.includes('賞味期') || line.includes('赏味期');
                                 const bar = line.indexOf('｜');
-                                const isFlavor = !isHead && bar > 0 && !line.slice(0, bar).includes(':') && line.length < 90;
-                                if (isHead) return <h4 key={i} className="pd-head">{line}</h4>;
+                                const head = bar > 0 ? line.slice(0, bar).trim() : '';
+                                // ALL-CAPS name before ｜ (KOHAKU, KANTON TSUKI) → section heading;
+                                // Title-case (Kohaku) → compact flavour card.
+                                const isCapsHead = bar > 0 && /^[A-Z][A-Z ]*$/.test(head);
+                                const isHead = isCapsHead || line.includes('SHELF LIFE') || line.includes('賞味期') || line.includes('赏味期');
+                                const isFlavor = !isHead && bar > 0 && !head.includes(':') && line.length < 120;
+                                if (isHead) return <h4 key={i} className="pd-head">{line.replace('｜', ' · ')}</h4>;
                                 if (isFlavor) {
-                                    const name = line.slice(0, bar).trim();
                                     const notes = line.slice(bar + 1).trim();
                                     return (
                                         <div key={i} className="pd-flavor">
-                                            <span className="pd-flavor-name">{name}</span>
+                                            <span className="pd-flavor-name">{head}</span>
                                             <span className="pd-flavor-notes">{notes}</span>
                                         </div>
                                     );
