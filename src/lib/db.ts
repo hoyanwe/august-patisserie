@@ -5,24 +5,19 @@ export interface Env {
     BUCKET: R2Bucket;
 }
 
-export function getDb() {
+export function getDb(): D1Database | undefined {
     try {
         const context = getCloudflareContext();
         if (context?.env?.DB) {
             return context.env.DB;
         }
-    } catch (e) {
-        // Fallback for local development if not in request context
-        console.warn('DB context not found, attempting fallback or returning null');
+    } catch {
+        console.warn('DB context not found');
     }
-
-    // In a real OpenNext setup, the DB is available via the request context.
-    // For local dev without wrangler, this might need a different approach (e.g. better-sqlite3)
-    // but for now we assume we're running in a CF-compatible environment.
-    return (process.env as any).DB as D1Database;
+    return undefined;
 }
 
-export async function query<T>(sql: string, params: any[] = []): Promise<T[]> {
+export async function query<T>(sql: string, params: unknown[] = []): Promise<T[]> {
     const db = getDb();
     if (!db) {
         throw new Error('Database connection not available');
@@ -31,10 +26,27 @@ export async function query<T>(sql: string, params: any[] = []): Promise<T[]> {
     return results;
 }
 
-export async function execute(sql: string, params: any[] = []): Promise<D1Response> {
+export async function execute(sql: string, params: unknown[] = []): Promise<D1Response> {
     const db = getDb();
     if (!db) {
         throw new Error('Database connection not available');
     }
     return await db.prepare(sql).bind(...params).run();
+}
+
+/**
+ * Run several statements atomically. D1 wraps a `batch()` in a single implicit
+ * transaction that rolls back as a unit, so a mid-sequence failure can no longer
+ * leave a table half-written (e.g. DELETE committed but re-INSERT failed).
+ * `statements` receives the live D1Database so callers can build prepared+bound
+ * statements.
+ */
+export async function batch(
+    build: (db: D1Database) => D1PreparedStatement[],
+): Promise<D1Result[]> {
+    const db = getDb();
+    if (!db) {
+        throw new Error('Database connection not available');
+    }
+    return db.batch(build(db));
 }

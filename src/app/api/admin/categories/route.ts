@@ -9,6 +9,7 @@ interface CategoryDB {
     name_zh: string;
 }
 
+// Public: the menu filter renders categories.
 export async function GET() {
     try {
         const results = await query<CategoryDB>('SELECT * FROM categories');
@@ -34,17 +35,20 @@ export async function POST(request: Request) {
     }
 
     try {
-        const body = await request.json() as { name: { en: string; zh: string } };
+        const body = await request.json() as { name?: { en?: string; zh?: string } };
+        if (!body?.name || typeof body.name.en !== 'string' || body.name.en.trim() === '') {
+            return NextResponse.json({ error: 'Category name (en) is required' }, { status: 400 });
+        }
         const id = Date.now().toString();
 
         await execute(
             'INSERT INTO categories (id, name_en, name_zh) VALUES (?, ?, ?)',
-            [id, body.name.en, body.name.zh]
+            [id, body.name.en, body.name.zh ?? '']
         );
 
         return NextResponse.json({
             id,
-            name: body.name,
+            name: { en: body.name.en, zh: body.name.zh ?? '' },
             slug: id
         });
     } catch (error) {
@@ -61,6 +65,23 @@ export async function DELETE(request: Request) {
 
     try {
         const { id } = await request.json() as { id: string };
+        if (!id) {
+            return NextResponse.json({ error: 'Category id is required' }, { status: 400 });
+        }
+
+        // Refuse to orphan products: a category in use cannot be deleted until
+        // its products are reassigned. This avoids silent FK failures / orphans.
+        const inUse = await query<{ n: number }>(
+            'SELECT COUNT(*) AS n FROM products WHERE category_id = ?',
+            [id],
+        );
+        if ((inUse[0]?.n ?? 0) > 0) {
+            return NextResponse.json(
+                { error: `Cannot delete: ${inUse[0].n} product(s) still use this category. Reassign them first.` },
+                { status: 409 },
+            );
+        }
+
         await execute('DELETE FROM categories WHERE id = ?', [id]);
         return NextResponse.json({ success: true });
     } catch (error) {
