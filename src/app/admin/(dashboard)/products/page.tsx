@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -85,7 +87,7 @@ export default function ProductsPage() {
                 }}>
                     Products
                 </h1>
-                <a href="/admin/products/new" style={{
+                <Link href="/admin/products/new" style={{
                     padding: '0.75rem 1.5rem',
                     background: 'var(--pastel-purple)',
                     color: 'var(--text-primary)',
@@ -94,7 +96,7 @@ export default function ProductsPage() {
                     fontWeight: '500',
                 }}>
                     ➕ Add Product
-                </a>
+                </Link>
             </div>
 
             {products.length === 0 ? (
@@ -105,7 +107,7 @@ export default function ProductsPage() {
                     textAlign: 'center',
                     color: 'var(--text-secondary)',
                 }}>
-                    No products yet. Click "Add Product" to create your first product.
+                    No products yet. Click &quot;Add Product&quot; to create your first product.
                 </div>
             ) : (
                 <div style={{

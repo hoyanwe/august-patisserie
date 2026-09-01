@@ -1,15 +1,15 @@
 import { getCloudflareContext } from '@opennextjs/cloudflare';
 
-export function getBucket() {
+export function getBucket(): R2Bucket | undefined {
     try {
         const context = getCloudflareContext();
         if (context?.env?.BUCKET) {
             return context.env.BUCKET;
         }
-    } catch (e) {
+    } catch {
         console.warn('Bucket context not found');
     }
-    return (process.env as any).BUCKET as R2Bucket;
+    return undefined;
 }
 
 export async function uploadToR2(file: File | Buffer, filename: string, contentType: string) {
@@ -22,7 +22,7 @@ export async function uploadToR2(file: File | Buffer, filename: string, contentT
         httpMetadata: { contentType }
     });
 
-    // In production, you would typically return a public URL or a path to your proxy route
+    // Served back through /api/images/[filename] (see that route handler).
     return `/api/images/${filename}`;
 }
 

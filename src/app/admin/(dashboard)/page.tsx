@@ -1,6 +1,10 @@
 import DashboardActions from '@/components/admin/DashboardActions';
 import { query } from '@/lib/db';
 
+// Read live D1 counts on every request — must not be baked at build time
+// (that permanently showed "0 products / 0 categories" in production).
+export const dynamic = 'force-dynamic';
+
 
 export default async function AdminDashboard() {
     // Fetch statistics from D1

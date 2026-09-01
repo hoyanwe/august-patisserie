@@ -19,11 +19,18 @@
     "title": "Our Menu",
     "subtitle": "Freshly baked daily with the finest ingredients",
     "all": "All",
-    "bestSeller": "Best Seller"
+    "bestSeller": "Best Seller",
+    "empty": "No products available yet. Check back soon!"
   },
   "Cart": {
     "checkout": "Order on WhatsApp",
-    "items": "items"
+    "items": "items",
+    "title": "Your Cart",
+    "open": "Open cart",
+    "close": "Close cart",
+    "remove": "Remove {name}",
+    "decrease": "Decrease quantity of {name}",
+    "increase": "Increase quantity of {name}"
   },
   "Contact": {
     "title": "Get in Touch",

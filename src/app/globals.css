@@ -2,6 +2,9 @@
   /* Pastel Core Palette */
   --color-cream: #FAF7F2;
   --color-pink: #FFB7B2;
+  /* Accessible deep rose for text-on-color surfaces (white on pastel pink is
+     only ~1.66:1; this passes WCAG AA). Use for buttons/CTAs with white text. */
+  --color-pink-deep: #B03A54;
   --color-green: #E2F0CB;
   --color-blue: #C7CEEA;
   --color-peach: #FFDAC1;
@@ -93,10 +96,35 @@ a {
 }
 
 .btn-primary {
-  background-color: var(--color-pink);
+  background-color: var(--color-pink-deep);
   color: white;
 }
 
 .btn-primary:hover {
   opacity: 0.9;
+}
+
+/* Visible keyboard focus everywhere (none was defined before). */
+:focus-visible {
+  outline: 3px solid var(--color-santorini-blue, #0077C8);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.nav-link {
+  color: var(--color-text-main);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-link:hover {
+  color: var(--color-pink-deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

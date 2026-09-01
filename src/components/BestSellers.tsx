@@ -1,6 +1,7 @@
 'use client';
 
 import ProductCard from './ProductCard';
+import { Link } from '@/navigation';
 
 interface Product {
     id: string;
@@ -89,7 +90,7 @@ export default function BestSellers({ products, locale, translations }: Props) {
                 </div>
 
                 <div style={{ textAlign: 'center' }}>
-                    <a
+                    <Link
                         href="/menu"
                         style={{
                             display: 'inline-block',
@@ -112,7 +113,7 @@ export default function BestSellers({ products, locale, translations }: Props) {
                         }}
                     >
                         {translations.viewMenu}
-                    </a>
+                    </Link>
                 </div>
             </div>
         </section>

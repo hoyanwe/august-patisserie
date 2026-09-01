@@ -1,23 +1,10 @@
 import { getTranslations } from 'next-intl/server';
 import FilterableProductGrid from '@/components/FilterableProductGrid';
 import { query } from '@/lib/db';
+import { getAllProducts, type Product } from '@/lib/products';
 
-
-interface Product {
-    id: string;
-    name: {
-        en: string;
-        zh: string;
-    };
-    price: number;
-    category: string;
-    image: string;
-    description: {
-        en: string;
-        zh: string;
-    };
-    images?: string[];
-}
+// Always reflect live D1 data (never a stale build-time snapshot).
+export const dynamic = 'force-dynamic';
 
 interface CategoryDB {
     id: string;
@@ -25,42 +12,14 @@ interface CategoryDB {
     name_zh: string;
 }
 
-interface ProductDB {
-    id: string;
-    name_en: string;
-    name_zh: string;
-    price: number;
-    category_id: string;
-    description_en: string;
-    description_zh: string;
-    is_best_seller: number;
-    main_image: string;
-    images_list?: string;
-}
-
 export default async function MenuPage({ params }: { params: Promise<{ locale: string }> }) {
     const t = await getTranslations('Menu');
     const { locale } = await params;
 
-    // Fetch products from D1
+    // Fetch products from D1 (shared query/mapper keeps isBestSeller + image order correct).
     let products: Product[] = [];
     try {
-        const results = await query<ProductDB>(`
-            SELECT p.*, GROUP_CONCAT(pi.url) as images_list
-            FROM products p
-            LEFT JOIN product_images pi ON p.id = pi.product_id
-            GROUP BY p.id
-        `);
-
-        products = results.map(row => ({
-            id: row.id,
-            name: { en: row.name_en, zh: row.name_zh },
-            price: row.price,
-            category: row.category_id,
-            description: { en: row.description_en, zh: row.description_zh },
-            image: row.main_image,
-            images: row.images_list ? row.images_list.split(',') : []
-        }));
+        products = await getAllProducts();
     } catch (error) {
         console.error('Failed to fetch products from D1:', error);
     }
@@ -68,10 +27,7 @@ export default async function MenuPage({ params }: { params: Promise<{ locale: s
     // Fetch categories from D1
     interface Category {
         id: string;
-        name: {
-            en: string;
-            zh: string;
-        };
+        name: { en: string; zh: string };
         slug: string;
     }
     let categories: Category[] = [];
@@ -118,7 +74,7 @@ export default async function MenuPage({ params }: { params: Promise<{ locale: s
                         padding: '3rem',
                         color: 'var(--text-secondary)',
                     }}>
-                        No products available yet. Check back soon!
+                        {t('empty')}
                     </div>
                 ) : (
                     <FilterableProductGrid
@@ -136,10 +92,10 @@ export default async function MenuPage({ params }: { params: Promise<{ locale: s
                         padding: 2rem 1rem !important;
                     }
                     .menu-title {
-                        fontSize: 2.2rem !important;
+                        font-size: 2.2rem !important;
                     }
                     .products-grid {
-                         grid-template-columns: 1fr !important; /* Single column on mobile */
+                         grid-template-columns: 1fr !important;
                          gap: 1.5rem !important;
                     }
                 }

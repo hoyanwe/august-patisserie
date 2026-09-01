@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function DashboardActions() {
     return (
         <div style={{
@@ -10,7 +12,7 @@ export default function DashboardActions() {
         }}>
             <h2 style={{ marginTop: 0, color: 'var(--text-primary)' }}>Quick Actions</h2>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                <a href="/admin/products" style={{
+                <Link href="/admin/products" style={{
                     padding: '0.75rem 1.5rem',
                     background: '#E0BBE4', // pastel-purple
                     color: '#333333',
@@ -23,8 +25,8 @@ export default function DashboardActions() {
                     onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
                     onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                     ➕ Add New Product
-                </a>
-                <a href="/admin/categories" style={{
+                </Link>
+                <Link href="/admin/categories" style={{
                     padding: '0.75rem 1.5rem',
                     background: '#FFB7B2', // pastel-pink
                     color: '#333333',
@@ -37,8 +39,8 @@ export default function DashboardActions() {
                     onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
                     onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                     ➕ Add New Category
-                </a>
-                <a href="/admin/story" style={{
+                </Link>
+                <Link href="/admin/story" style={{
                     padding: '0.75rem 1.5rem',
                     background: '#C7CEEA', // pastel-blue (was pastel-blue but making it distinct)
                     color: '#333333',
@@ -51,7 +53,7 @@ export default function DashboardActions() {
                     onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
                     onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                     ✏️ Edit Story
-                </a>
+                </Link>
             </div>
         </div>
     );

@@ -8,9 +8,12 @@ export function generateWhatsAppLink(items: CartItem[], total: number, locale: s
 
     const itemsList = items.map(item =>
         `- ${item.name} x${item.quantity} (RM${(item.price * item.quantity).toFixed(2)})`
-    ).join('%0A'); // %0A is newline
+    ).join('\n');
 
-    const message = `${header}%0A%0A${itemsList}%0A%0A*${totalLabel}: RM${total.toFixed(2)}*`;
+    // Build the message as a plain string with real newlines, then encode once.
+    // encodeURIComponent handles &, #, +, %, spaces and non-ASCII (e.g. Chinese)
+    // correctly — manual %0A concatenation truncated orders at the first '&'/'#'.
+    const message = `${header}\n\n${itemsList}\n\n*${totalLabel}: RM${total.toFixed(2)}*`;
 
-    return `https://wa.me/${phone}?text=${message}`;
+    return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 }

@@ -19,11 +19,18 @@
         "title": "我们的菜单",
         "subtitle": "每日新鲜烘焙，采用最优质的原料",
         "all": "全部",
-        "bestSeller": "畅销款"
+        "bestSeller": "畅销款",
+        "empty": "暂无商品，敬请期待！"
     },
     "Cart": {
         "checkout": "通过 WhatsApp 订购",
-        "items": "项"
+        "items": "项",
+        "title": "您的购物车",
+        "open": "打开购物车",
+        "close": "关闭购物车",
+        "remove": "移除 {name}",
+        "decrease": "减少 {name} 的数量",
+        "increase": "增加 {name} 的数量"
     },
     "Contact": {
         "title": "联系我们",

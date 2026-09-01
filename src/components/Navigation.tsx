@@ -25,6 +25,8 @@ export default function Navigation() {
                 }}
                 className="mobile-menu-btn"
                 aria-label="Toggle Menu"
+                aria-expanded={isOpen}
+                aria-controls="mobile-nav"
             >
                 <div style={{ width: '25px', height: '3px', background: 'var(--color-text-main)', transition: 'all 0.3s', transform: isOpen ? 'rotate(45deg) translate(5px, 6px)' : 'none' }}></div>
                 <div style={{ width: '25px', height: '3px', background: 'var(--color-text-main)', opacity: isOpen ? 0 : 1, transition: 'all 0.3s' }}></div>
@@ -40,7 +42,7 @@ export default function Navigation() {
             </nav>
 
             {/* Mobile Nav Overlay */}
-            <div className={`mobile-nav ${isOpen ? 'open' : ''}`} style={{
+            <div id="mobile-nav" aria-hidden={!isOpen} className={`mobile-nav ${isOpen ? 'open' : ''}`} style={{
                 position: 'fixed',
                 top: '0',
                 right: isOpen ? '0' : '-100%',
@@ -53,7 +55,10 @@ export default function Navigation() {
                 gap: '2rem',
                 transition: 'right 0.3s ease',
                 zIndex: 101,
-                display: 'flex'
+                display: 'flex',
+                // When closed, keep it out of the tab order and off the a11y tree
+                // (it sits off-screen but was still focusable on desktop).
+                visibility: isOpen ? 'visible' : 'hidden',
             }}>
                 <Link href="/menu" onClick={() => setIsOpen(false)} style={{ fontSize: '1.2rem', fontWeight: 600 }}>{t('menu')}</Link>
                 <Link href="/story" onClick={() => setIsOpen(false)} style={{ fontSize: '1.2rem', fontWeight: 600 }}>{t('story')}</Link>

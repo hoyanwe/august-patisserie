@@ -3,13 +3,25 @@
 import { useCart } from '@/context/CartContext';
 import { generateWhatsAppLink } from '@/lib/whatsapp';
 import { useLocale, useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function FloatingCart() {
     const { cartCount, cartTotal, items, updateQuantity, removeFromCart } = useCart();
     const locale = useLocale();
     const t = useTranslations('Cart');
     const [isExpanded, setIsExpanded] = useState(false);
+    const panelRef = useRef<HTMLDivElement>(null);
+
+    // Close on Escape and move focus into the panel when it opens.
+    useEffect(() => {
+        if (!isExpanded) return;
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setIsExpanded(false);
+        };
+        document.addEventListener('keydown', onKey);
+        panelRef.current?.focus();
+        return () => document.removeEventListener('keydown', onKey);
+    }, [isExpanded]);
 
     if (cartCount === 0) return null;
 
@@ -22,20 +34,27 @@ export default function FloatingCart() {
         <>
             {/* Expanded Cart View */}
             {isExpanded && (
-                <div style={{
-                    position: 'fixed',
-                    bottom: '7rem', // Above the floating bar
-                    right: '2rem',
-                    left: '2rem',
-                    maxWidth: '400px',
-                    margin: '0 auto',
-                    backgroundColor: 'white',
-                    borderRadius: 'var(--radius-md)',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-                    zIndex: 1000,
-                    overflow: 'hidden',
-                    border: '1px solid var(--color-border)',
-                }}>
+                <div
+                    ref={panelRef}
+                    id="cart-panel"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="cart-panel-title"
+                    tabIndex={-1}
+                    style={{
+                        position: 'fixed',
+                        bottom: '7rem',
+                        right: '2rem',
+                        left: '2rem',
+                        maxWidth: '400px',
+                        margin: '0 auto',
+                        backgroundColor: 'white',
+                        borderRadius: 'var(--radius-md)',
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+                        zIndex: 1000,
+                        overflow: 'hidden',
+                        border: '1px solid var(--color-border)',
+                    }}>
                     <div style={{
                         padding: '1rem',
                         borderBottom: '1px solid #eee',
@@ -44,9 +63,10 @@ export default function FloatingCart() {
                         alignItems: 'center',
                         backgroundColor: '#f9f9f9',
                     }}>
-                        <h3 style={{ margin: 0, fontSize: '1.1rem' }}>Your Cart</h3>
+                        <h3 id="cart-panel-title" style={{ margin: 0, fontSize: '1.1rem' }}>{t('title')}</h3>
                         <button
                             onClick={() => setIsExpanded(false)}
+                            aria-label={t('close')}
                             style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', lineHeight: 1 }}
                         >
                             &times;
@@ -73,6 +93,7 @@ export default function FloatingCart() {
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                     <button
                                         onClick={() => updateQuantity(item.id, -1)}
+                                        aria-label={t('decrease', { name: item.name })}
                                         style={{ width: '28px', height: '28px', borderRadius: '50%', border: '1px solid #ccc', background: 'white', cursor: 'pointer' }}
                                     >
                                         -
@@ -80,12 +101,14 @@ export default function FloatingCart() {
                                     <span style={{ minWidth: '20px', textAlign: 'center' }}>{item.quantity}</span>
                                     <button
                                         onClick={() => updateQuantity(item.id, 1)}
+                                        aria-label={t('increase', { name: item.name })}
                                         style={{ width: '28px', height: '28px', borderRadius: '50%', border: '1px solid #ccc', background: 'white', cursor: 'pointer' }}
                                     >
                                         +
                                     </button>
                                     <button
                                         onClick={() => removeFromCart(item.id)}
+                                        aria-label={t('remove', { name: item.name })}
                                         style={{ marginLeft: '0.5rem', border: 'none', background: 'none', color: '#ff4444', cursor: 'pointer' }}
                                     >
                                         🗑️
@@ -114,17 +137,21 @@ export default function FloatingCart() {
                 alignItems: 'center',
                 zIndex: 1000
             }}>
-                <div
+                <button
                     onClick={() => setIsExpanded(!isExpanded)}
-                    style={{ color: 'var(--color-text-main)', cursor: 'pointer', flex: 1 }}
+                    aria-expanded={isExpanded}
+                    aria-controls="cart-panel"
+                    aria-label={isExpanded ? t('close') : t('open')}
+                    style={{ color: 'var(--color-text-main)', cursor: 'pointer', flex: 1, background: 'none', border: 'none', textAlign: 'left', font: 'inherit', padding: 0 }}
                 >
-                    <p style={{ fontWeight: 'bold' }}>
-                        {cartCount} Items {isExpanded ? '▼' : '▲'}
+                    <p style={{ fontWeight: 'bold', margin: 0 }}>
+                        {cartCount} {t('items')} {isExpanded ? '▼' : '▲'}
                     </p>
-                    <p>RM {cartTotal.toFixed(2)}</p>
-                </div>
+                    <p style={{ margin: 0 }}>RM {cartTotal.toFixed(2)}</p>
+                </button>
                 <button
                     onClick={handleCheckout}
+                    aria-label={t('checkout')}
                     style={{
                         backgroundColor: '#25D366', // WhatsApp Green
                         color: 'white',
