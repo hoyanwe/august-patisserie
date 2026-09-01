@@ -108,7 +108,7 @@ export default async function Home({ params }: Props) {
                   <path id="hlBadgePath" d="M100,100 m-70,0 a70,70 0 1,1 140,0 a70,70 0 1,1 -140,0" />
                 </defs>
                 <text className="hl-badge-text">
-                  <textPath href="#hlBadgePath" startOffset="0">AUGUST PATISSERIE · PÂTISSERIE · AUGUST PATISSERIE · PÂTISSERIE · </textPath>
+                  <textPath href="#hlBadgePath" startOffset="0">AUGUST · PATISSERIE · AUGUST · PATISSERIE · </textPath>
                 </text>
               </svg>
               <span className="hl-badge-dot" />
@@ -156,8 +156,8 @@ export default async function Home({ params }: Props) {
           .hl-arch-wrap { position: relative; width: min(80%, 430px); }
           .hl-arch {
             position: relative;
-            aspect-ratio: 3 / 4;
-            border-radius: 50% 50% 14px 14px / 46% 46% 14px 14px;
+            aspect-ratio: 4 / 5;
+            border-radius: 50% 50% 18px 18px / 34% 34% 18px 18px;
             overflow: hidden;
             box-shadow: 0 34px 60px -30px rgba(80,60,40,0.4);
           }
@@ -176,16 +176,16 @@ export default async function Home({ params }: Props) {
           }
           .hl-badge {
             position: absolute;
-            top: -5%; right: -11%;
-            width: 118px; height: 118px;
+            top: 9%; right: -9%;
+            width: 108px; height: 108px;
             border-radius: 50%;
             background: #f5f1ea;
             box-shadow: 0 10px 26px -10px rgba(80,60,40,0.35);
             display: flex; align-items: center; justify-content: center;
           }
-          .hl-badge-svg { width: 100%; height: 100%; animation: hlspin 20s linear infinite; }
+          .hl-badge-svg { width: 100%; height: 100%; animation: hlspin 22s linear infinite; }
           .hl-badge-text {
-            font-size: 11px; letter-spacing: 1.4px; fill: #7d7060;
+            font-size: 12px; letter-spacing: 2.5px; fill: #7d7060;
             text-transform: uppercase; font-family: var(--font-lato), sans-serif;
           }
           .hl-badge-dot {
@@ -228,8 +228,8 @@ export default async function Home({ params }: Props) {
             .hl-hero { padding: 3rem 1rem 3.5rem; }
             .hl-vside { display: none; }
             .hl-arch-wrap { width: 86%; }
-            .hl-badge { width: 88px; height: 88px; right: -4%; top: -4%; }
-            .hl-badge-text { font-size: 10px; letter-spacing: 1px; }
+            .hl-badge { width: 82px; height: 82px; right: -6%; top: 8%; }
+            .hl-badge-text { font-size: 12px; letter-spacing: 2.5px; }
             .hl-headline { margin-top: -1.6rem; }
             .hl-arch-cap { font-size: 0.95rem; }
           }
