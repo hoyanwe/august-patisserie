@@ -59,8 +59,8 @@ export default function AnnouncementBar() {
 
     return (
         <div style={{
-            background: '#2c1810',
-            color: '#f8f4e6',
+            background: '#DAD4CD',
+            color: '#2c1810',
             textAlign: 'center',
             padding: '0.6rem 1rem',
             fontSize: '0.9rem',
@@ -93,7 +93,7 @@ export default function AnnouncementBar() {
                                 width: '6px',
                                 height: '6px',
                                 borderRadius: '50%',
-                                background: idx === currentIndex ? 'white' : 'rgba(255,255,255,0.3)',
+                                background: idx === currentIndex ? '#2c1810' : 'rgba(44,24,16,0.3)',
                                 transition: 'background 0.3s'
                             }}
                         />
