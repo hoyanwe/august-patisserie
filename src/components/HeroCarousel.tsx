@@ -23,6 +23,10 @@ export default function HeroCarousel({ images, alt }: { images: string[]; alt: s
                     className="hl-carousel-img"
                     style={{ opacity: i === index ? 1 : 0 }}
                     draggable={false}
+                    // First image loads eagerly (LCP); the rest lazily so 10
+                    // images don't block the initial paint.
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
                 />
             ))}
         </div>

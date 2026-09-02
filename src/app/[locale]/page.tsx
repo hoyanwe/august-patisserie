@@ -81,8 +81,15 @@ export default async function Home({ params }: Props) {
     heroImage,
     '/images/hero-kitchen.png',
     '/images/products/1770219682977.png',
-    '/images/products/1770218898793.png',
-  ])).slice(0, 4);
+    '/images/hero/pexels-29445730.jpg', // bakery display
+    '/images/hero/pexels-8651023.jpg',  // cinnamon rolls
+    '/images/hero/pexels-36340982.jpg', // apple tart
+    '/images/hero/pexels-33739660.jpg', // banana bread
+    '/images/hero/pexels-27819874.jpg', // chocolate swirl buns
+    '/images/hero/pexels-35156663.jpg', // gingerbread
+    '/images/hero/pexels-36361401.jpg', // churros
+    '/images/hero/pexels-6195.jpg',     // gold plate
+  ])).slice(0, 10);
 
   const storyTitle = storyData?.[currentLocale]?.title || (currentLocale === 'zh' ? '我们的故事' : 'Our Story');
   const storyContent = storyData?.[currentLocale]?.content || "Coming soon...";
