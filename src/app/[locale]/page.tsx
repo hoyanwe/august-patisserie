@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/navigation';
 import HeroCarousel from '@/components/HeroCarousel';
+import HeroReveal from '@/components/HeroReveal';
 import InstagramGallery from '@/components/InstagramGallery';
 import IngredientSpotlight from '@/components/IngredientSpotlight';
 import BestSellers from '@/components/BestSellers';
@@ -108,6 +109,7 @@ export default async function Home({ params }: Props) {
     <div style={{ width: '100%', overflowX: 'hidden' }}>
       {/* Hero Section — editorial */}
       <section className="hl-hero">
+        <HeroReveal />
         <span className="hl-vside hl-vside-l">AUGUST PATISSERIE · PÂTISSERIE</span>
         <span className="hl-vside hl-vside-r">HANDCRAFTED · BAKED FRESH DAILY</span>
 

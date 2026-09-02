@@ -17,6 +17,7 @@
     "db:migrate:local": "wrangler d1 migrations apply august-patisserie-db --local"
   },
   "dependencies": {
+    "animejs": "^4.5.0",
     "next": "16.1.1",
     "next-auth": "^5.0.0-beta.30",
     "next-intl": "^4.7.0",
