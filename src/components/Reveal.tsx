@@ -40,10 +40,11 @@ export default function Reveal({
         const reveal = () => targets.forEach(el => { el.style.opacity = ''; el.style.transform = ''; });
         targets.forEach(el => { el.style.opacity = '0'; });
 
-        let done = false;
+        let started = false;
+        let revealTimer: ReturnType<typeof setTimeout> | undefined;
         const run = () => {
-            if (done) return;
-            done = true;
+            if (started) return;
+            started = true;
             try {
                 animate(targets, {
                     opacity: [0, 1],
@@ -55,6 +56,9 @@ export default function Reveal({
             } catch {
                 reveal();
             }
+            // Once triggered, guarantee visibility shortly after the animation
+            // should have finished — even if the engine was paused (background tab).
+            revealTimer = setTimeout(reveal, 1200 + step * targets.length);
         };
 
         const io = new IntersectionObserver((entries) => {
@@ -62,10 +66,10 @@ export default function Reveal({
         }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
         io.observe(root);
 
-        // Safety: never leave content hidden.
-        const safety = setTimeout(() => { if (!done) reveal(); }, 4000);
+        // Global fallback: if it never entered view (or IO is unavailable), reveal.
+        const globalSafety = setTimeout(() => { if (!started) reveal(); }, 8000);
 
-        return () => { io.disconnect(); clearTimeout(safety); };
+        return () => { io.disconnect(); clearTimeout(globalSafety); if (revealTimer) clearTimeout(revealTimer); };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
