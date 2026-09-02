@@ -24,16 +24,17 @@ export default async function StoryPage({ params }: { params: Promise<{ locale: 
         console.error('Error fetching story data from D1:', error);
     }
 
-    const eyebrow = currentLocale === 'zh' ? '我们的故事' : 'Our Story';
+    const kicker = currentLocale === 'zh' ? '手工烘焙甜點' : 'Handcrafted Pâtisserie';
+    const fallbackTitle = currentLocale === 'zh' ? '我们的故事' : 'Our Story';
 
     return (
         <div className="ed-page story2">
             <Reveal className="story2-inner" step={110} y={22}>
-                <span className="ed-eyebrow">{eyebrow}</span>
+                <span className="ed-eyebrow">{kicker}</span>
                 <div className="story2-arch">
                     <img src="/images/hero/pexels-29445730.jpg" alt="" />
                 </div>
-                <h1 className="ed-title story2-title">{storyData.title || eyebrow}</h1>
+                <h1 className="ed-title story2-title">{storyData.title || fallbackTitle}</h1>
                 <div className="ed-divider" />
                 <div className="story2-body">{storyData.content || 'Coming soon...'}</div>
             </Reveal>

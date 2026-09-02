@@ -60,7 +60,7 @@ body,
 }
 
 body {
-  background-color: var(--color-cream);
+  background-color: var(--warm-bg);
   color: var(--color-text-main);
   font-family: var(--font-body), sans-serif;
   -webkit-font-smoothing: antialiased;

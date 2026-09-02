@@ -26,7 +26,7 @@ export default async function ContactPage({ params }: Props) {
         console.error('Error fetching contact data from D1:', error);
     }
 
-    const eyebrow = currentLocale === 'zh' ? '联系我们' : 'Contact';
+    const kicker = currentLocale === 'zh' ? '手工烘焙甜點' : 'Handcrafted Pâtisserie';
     const title = contactData?.[currentLocale]?.title || (currentLocale === 'zh' ? '联系我们' : 'Get in Touch');
     const intro = contactData?.[currentLocale]?.intro || (currentLocale === 'zh'
         ? '我们很乐意满足您对甜品的渴望。\n欢迎联系我们定制订单、咨询或打个招呼。'
@@ -37,7 +37,7 @@ export default async function ContactPage({ params }: Props) {
     return (
         <div className="ed-page contact2">
             <Reveal className="contact2-inner" step={100} y={20}>
-                <span className="ed-eyebrow">{eyebrow}</span>
+                <span className="ed-eyebrow">{kicker}</span>
                 <h1 className="ed-title contact2-title">{title}</h1>
                 <div className="ed-divider" />
                 <p className="ed-lede contact2-intro">{intro}</p>

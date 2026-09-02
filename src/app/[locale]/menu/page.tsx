@@ -47,7 +47,7 @@ export default async function MenuPage({ params }: { params: Promise<{ locale: s
         bestSeller: t('bestSeller')
     };
 
-    const eyebrow = locale === 'zh' ? '菜单' : 'Menu';
+    const eyebrow = locale === 'zh' ? '手工烘焙甜點' : 'Handcrafted Pâtisserie';
 
     return (
         <div className="ed-page menu-container" style={{ padding: '4rem 2rem' }}>
