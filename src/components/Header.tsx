@@ -4,12 +4,12 @@ import Navigation from './Navigation';
 export default function Header() {
     return (
         <header style={{
-            padding: '0.85rem 0',
-            backgroundColor: 'var(--color-cream)',
+            padding: '0.5rem 0',
+            backgroundColor: '#DAD4CD',
             position: 'sticky',
             top: 0,
             zIndex: 100,
-            borderBottom: '1px solid #e9e1d4'
+            borderBottom: '1px solid rgba(58,47,40,0.08)'
         }}>
             <div className="container" style={{
                 display: 'flex',
