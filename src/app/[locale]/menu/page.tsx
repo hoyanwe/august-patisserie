@@ -47,26 +47,25 @@ export default async function MenuPage({ params }: { params: Promise<{ locale: s
         bestSeller: t('bestSeller')
     };
 
+    const eyebrow = locale === 'zh' ? '菜单' : 'Menu';
+
     return (
-        <div className="menu-container" style={{ padding: '4rem 2rem' }}>
+        <div className="ed-page menu-container" style={{ padding: '4rem 2rem' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                <h1 className="menu-title" style={{
-                    fontSize: '3rem',
-                    textAlign: 'center',
-                    marginBottom: '1rem',
-                    color: 'var(--text-primary)',
-                    fontFamily: 'var(--font-playfair)',
-                }}>
-                    {t('title')}
-                </h1>
-                <p style={{
-                    textAlign: 'center',
-                    color: 'var(--text-secondary)',
-                    marginBottom: '3rem',
-                    fontSize: '1.125rem',
-                }}>
-                    {t('subtitle')}
-                </p>
+                <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                    <span className="ed-eyebrow">{eyebrow}</span>
+                    <h1 className="ed-title menu-title" style={{
+                        fontSize: 'clamp(2.4rem, 5.5vw, 3.6rem)',
+                        marginTop: '0.8rem',
+                        marginBottom: 0,
+                    }}>
+                        {t('title')}
+                    </h1>
+                    <div className="ed-divider" />
+                    <p className="ed-lede" style={{ margin: 0 }}>
+                        {t('subtitle')}
+                    </p>
+                </div>
 
                 {products.length === 0 ? (
                     <div style={{

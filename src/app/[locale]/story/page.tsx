@@ -1,109 +1,67 @@
 import { query } from '@/lib/db';
+import Reveal from '@/components/Reveal';
 
 export const dynamic = 'force-dynamic';
 
 
 interface StoryData {
-    en: {
-        title: string;
-        content: string;
-    };
-    zh: {
-        title: string;
-        content: string;
-    };
+    en: { title: string; content: string };
+    zh: { title: string; content: string };
 }
 
 export default async function StoryPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
     const currentLocale = (locale === 'zh' ? 'zh' : 'en') as 'en' | 'zh';
 
-    // Read story content from D1
     let storyData = { title: '', content: '' };
     try {
         const results = await query<{ value: string }>('SELECT value FROM site_settings WHERE key = ?', ['story']);
         if (results.length > 0) {
             const allStoryData = JSON.parse(results[0].value) as StoryData;
-            // Get story for current locale, fallback to English
             storyData = allStoryData[currentLocale] || allStoryData['en'];
         }
     } catch (error) {
         console.error('Error fetching story data from D1:', error);
     }
 
+    const eyebrow = currentLocale === 'zh' ? '我们的故事' : 'Our Story';
+
     return (
-        <div className="story-page" style={{
-            position: 'relative',
-            minHeight: '100vh',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '6rem 2rem',
-            overflow: 'hidden'
-        }}>
-            {/* Full Background Image */}
-            <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundImage: 'url(/images/story-bg.png)',
-                backgroundRepeat: 'repeat',
-                backgroundSize: '50%',
-                filter: 'blur(8px) brightness(1.1) opacity(0.4)',
-                transform: 'scale(1.1)', // Prevent blur edge artifacts
-                zIndex: -1,
-            }} />
-
-            {/* Content Card with Glassmorphism */}
-            <div className="story-content-wrapper" style={{
-                maxWidth: '900px',
-                width: '100%',
-            }}>
-                <h1 className="story-title" style={{
-                    fontFamily: 'var(--font-playfair)',
-                    fontSize: '3.5rem',
-                    textAlign: 'center',
-                    marginBottom: '3rem',
-                    color: '#2c1810',
-                    textShadow: '0 2px 10px rgba(255,255,255,0.8)'
-                }}>
-                    {storyData.title || "Our Story"}
-                </h1>
-
-                <div className="story-content" style={{
-                    background: 'rgba(255, 255, 255, 0.85)',
-                    backdropFilter: 'blur(20px)',
-                    padding: '4rem',
-                    borderRadius: '24px',
-                    boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
-                    lineHeight: '2',
-                    fontSize: '1.1rem',
-                    color: '#555',
-                    whiteSpace: 'pre-wrap',
-                    border: '1px solid rgba(255,255,255,0.5)'
-                }}>
-                    {storyData.content || "Coming soon..."}
+        <div className="ed-page story2">
+            <Reveal className="story2-inner" step={110} y={22}>
+                <span className="ed-eyebrow">{eyebrow}</span>
+                <div className="story2-arch">
+                    <img src="/images/hero/pexels-29445730.jpg" alt="" />
                 </div>
-            </div>
+                <h1 className="ed-title story2-title">{storyData.title || eyebrow}</h1>
+                <div className="ed-divider" />
+                <div className="story2-body">{storyData.content || 'Coming soon...'}</div>
+            </Reveal>
 
             <style>{`
+                .story2 { display: flex; justify-content: center; padding: 5rem 1.5rem 6rem; }
+                .story2-inner {
+                    max-width: 680px; width: 100%;
+                    display: flex; flex-direction: column; align-items: center; text-align: center;
+                }
+                .story2 .ed-eyebrow { order: -1; }
+                .story2-arch {
+                    width: min(66%, 300px); aspect-ratio: 4 / 5;
+                    border-radius: 50% 50% 16px 16px / 34% 34% 16px 16px;
+                    overflow: hidden; margin: 1.6rem 0 0.4rem;
+                    box-shadow: 0 30px 55px -30px rgba(80,60,40,0.42);
+                }
+                .story2-arch img { width: 100%; height: 100%; object-fit: cover; display: block; }
+                .story2-title { font-size: clamp(2.3rem, 5.4vw, 3.5rem); margin: 1.1rem 0 0; }
+                .story2-body {
+                    color: var(--warm-ink); opacity: 0.88;
+                    font-size: 1.08rem; line-height: 2; white-space: pre-wrap;
+                    max-width: 60ch; margin-top: 0.4rem;
+                }
                 @media (max-width: 768px) {
-                    .story-page {
-                        padding: 3rem 1rem !important;
-                        min-height: 100vh !important;
-                    }
-                    .story-title {
-                        font-size: 2.5rem !important;
-                        margin-bottom: 2rem !important;
-                    }
-                    .story-content {
-                        padding: 2rem 1.5rem !important;
-                        font-size: 1rem !important;
-                        line-height: 1.8 !important;
-                        border-radius: 20px !important;
-                    }
+                    .story2 { padding: 3rem 1.2rem 4rem; }
+                    .story2-arch { width: 82%; }
+                    .story2-body { font-size: 1rem; line-height: 1.9; }
                 }
             `}</style>
         </div>

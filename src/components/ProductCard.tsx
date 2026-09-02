@@ -33,7 +33,7 @@ export default function ProductCard({ product, locale }: { product: Product; loc
     };
 
     return (
-        <div style={{
+        <div className="card-hover" style={{
             border: '1px solid var(--color-border)',
             borderRadius: 'var(--radius-md)',
             overflow: 'hidden',
@@ -54,7 +54,7 @@ export default function ProductCard({ product, locale }: { product: Product; loc
                 }}>
                     {/* Placeholder or Image */}
                     {product.image ? (
-                        <img src={product.image} alt={productName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        <img className="zoomable" src={product.image} alt={productName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     ) : (
                         <span style={{ color: '#aaa' }}>No Image</span>
                     )}

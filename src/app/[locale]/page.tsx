@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { Link } from '@/navigation';
 import HeroCarousel from '@/components/HeroCarousel';
 import HeroReveal from '@/components/HeroReveal';
+import Reveal from '@/components/Reveal';
 import InstagramGallery from '@/components/InstagramGallery';
 import IngredientSpotlight from '@/components/IngredientSpotlight';
 import BestSellers from '@/components/BestSellers';
@@ -185,7 +186,9 @@ export default async function Home({ params }: Props) {
             object-fit: cover;
             transition: opacity 2.5s ease-in-out;
             user-select: none;
+            animation: hlken 22s ease-in-out infinite alternate;
           }
+          @keyframes hlken { from { transform: scale(1); } to { transform: scale(1.07); } }
           .hl-badge {
             position: absolute;
             top: 9%; right: -9%;
@@ -250,46 +253,50 @@ export default async function Home({ params }: Props) {
 
       <div className="container">
         {/* Story Section */}
-        <section style={{ padding: '4rem 0', textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{
-            color: 'var(--color-text-main)',
-            marginBottom: '1.5rem',
-            fontFamily: 'var(--font-playfair)',
-            fontSize: '2.5rem'
-          }}>
-            {storyTitle}
-          </h2>
-          <div style={{
-            color: 'var(--color-text-light)',
-            fontSize: '1.1rem',
-            lineHeight: '1.8',
-            whiteSpace: 'pre-wrap'
-          }}>
-            {storyContent}
-          </div>
-        </section>
+        <Reveal>
+          <section style={{ padding: '4rem 0', textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+            <h2 style={{
+              color: 'var(--warm-ink)',
+              marginBottom: '1.5rem',
+              fontFamily: 'var(--font-playfair)',
+              fontSize: '2.5rem'
+            }}>
+              {storyTitle}
+            </h2>
+            <div style={{
+              color: 'var(--color-text-light)',
+              fontSize: '1.1rem',
+              lineHeight: '1.8',
+              whiteSpace: 'pre-wrap'
+            }}>
+              {storyContent}
+            </div>
+          </section>
+        </Reveal>
 
         {/* Best Sellers Section */}
         {bestSellers.length > 0 && (
-          <BestSellers
-            products={bestSellers}
-            locale={locale}
-            translations={{
-              title: homeT('bestSellersTitle'),
-              subtitle: homeT('bestSellersSubtitle'),
-              viewMenu: homeT('viewMenu')
-            }}
-          />
+          <Reveal>
+            <BestSellers
+              products={bestSellers}
+              locale={locale}
+              translations={{
+                title: homeT('bestSellersTitle'),
+                subtitle: homeT('bestSellersSubtitle'),
+                viewMenu: homeT('viewMenu')
+              }}
+            />
+          </Reveal>
         )}
 
         {/* Ingredients Spotlight */}
-        <IngredientSpotlight locale={locale} />
+        <Reveal><IngredientSpotlight locale={locale} /></Reveal>
 
         {/* Customer Reviews */}
-        <ReviewSection />
+        <Reveal><ReviewSection /></Reveal>
 
         {/* Instagram Feed */}
-        <InstagramGallery />
+        <Reveal><InstagramGallery /></Reveal>
       </div>
     </div>
   );

@@ -25,9 +25,8 @@ export default async function ProductPage({ params }: Props) {
     }
 
     return (
-        <div style={{
+        <div className="ed-page" style={{
             minHeight: '100vh',
-            background: '#f8f9fa',
             padding: '4rem 2rem'
         }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>

@@ -44,6 +44,20 @@ export default function FilterableProductGrid({ products, categories, locale, tr
         ? products
         : products.filter(p => p.category === selectedCategory);
 
+    const pill = (active: boolean): React.CSSProperties => ({
+        padding: '0.55rem 1.4rem',
+        borderRadius: '30px',
+        border: '1px solid var(--warm-accent)',
+        background: active ? 'var(--warm-accent)' : 'transparent',
+        color: active ? '#fff' : 'var(--warm-accent)',
+        fontWeight: 600,
+        fontSize: '0.9rem',
+        letterSpacing: '0.02em',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease',
+        boxShadow: active ? '0 4px 14px rgba(138,106,74,0.22)' : 'none',
+    });
+
     return (
         <div>
             {/* Category Filters */}
@@ -55,37 +69,14 @@ export default function FilterableProductGrid({ products, categories, locale, tr
                 flexWrap: 'wrap',
                 padding: '0 1rem'
             }}>
-                <button
-                    onClick={() => setSelectedCategory('all')}
-                    style={{
-                        padding: '0.6rem 1.5rem',
-                        borderRadius: '30px',
-                        border: '2px solid var(--color-pink)',
-                        background: selectedCategory === 'all' ? 'var(--color-pink)' : 'transparent',
-                        color: selectedCategory === 'all' ? 'white' : 'var(--color-pink)',
-                        fontWeight: '600',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease',
-                        boxShadow: selectedCategory === 'all' ? '0 4px 12px rgba(255, 182, 193, 0.3)' : 'none'
-                    }}
-                >
+                <button onClick={() => setSelectedCategory('all')} style={pill(selectedCategory === 'all')}>
                     {translations.all}
                 </button>
                 {categories.map((cat) => (
                     <button
                         key={cat.id}
                         onClick={() => setSelectedCategory(cat.id)}
-                        style={{
-                            padding: '0.6rem 1.5rem',
-                            borderRadius: '30px',
-                            border: '2px solid var(--color-pink)',
-                            background: selectedCategory === cat.id ? 'var(--color-pink)' : 'transparent',
-                            color: selectedCategory === cat.id ? 'white' : 'var(--color-pink)',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            transition: 'all 0.3s ease',
-                            boxShadow: selectedCategory === cat.id ? '0 4px 12px rgba(255, 182, 193, 0.3)' : 'none'
-                        }}
+                        style={pill(selectedCategory === cat.id)}
                     >
                         {cat.name[locale as 'en' | 'zh'] || cat.name.en}
                     </button>

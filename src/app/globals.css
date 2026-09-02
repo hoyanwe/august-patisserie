@@ -16,6 +16,13 @@
   --color-white: #FFFFFF;
   --color-border: #E5E5E5;
 
+  /* Warm editorial palette (matches the home hero) */
+  --warm-bg: #efe9e1;
+  --warm-ink: #3a2f28;
+  --warm-accent: #8a6a4a;
+  --warm-muted: #9b9186;
+  --warm-line: #e2d9cc;
+
   /* Pastel Aliases (Fix for Admin Dashboard) */
   --pastel-purple: var(--color-lavender);
   --pastel-blue: var(--color-blue);
@@ -127,4 +134,74 @@ a {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ---- Editorial helpers (warm palette, matches the home hero) ---- */
+.ed-page {
+  background: var(--warm-bg);
+}
+.ed-eyebrow {
+  font-family: var(--font-lato), sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--warm-accent);
+  font-weight: 600;
+}
+.ed-title {
+  font-family: var(--font-playfair), serif;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--warm-accent);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.ed-divider {
+  width: 46px;
+  height: 1px;
+  background: var(--warm-accent);
+  opacity: 0.55;
+  margin: 1.4rem auto;
+}
+.ed-lede {
+  color: var(--warm-muted);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+/* Card hover lift + inner image zoom (opt-in via .card-hover) */
+.card-hover {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 40px -22px rgba(80, 60, 40, 0.35);
+}
+.card-hover .zoomable {
+  transition: transform 0.6s ease;
+}
+.card-hover:hover .zoomable {
+  transform: scale(1.06);
+}
+
+/* Loading shimmer placeholder */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: #ece5db;
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shimmer::after { animation: none; }
 }

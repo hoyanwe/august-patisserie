@@ -124,14 +124,14 @@ export default function ProductDetail({ product, locale }: { product: Product; l
                         fontFamily: 'var(--font-playfair)',
                         fontSize: '2.5rem',
                         marginBottom: '1rem',
-                        color: 'var(--color-text-main)'
+                        color: 'var(--warm-ink)'
                     }}>
                         {productName}
                     </h1>
 
                     <p style={{
                         fontSize: '1.5rem',
-                        color: 'var(--color-pink)',
+                        color: 'var(--warm-accent)',
                         fontWeight: 'bold',
                         marginBottom: '1.5rem'
                     }}>
