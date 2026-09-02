@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/navigation';
+import HeroCarousel from '@/components/HeroCarousel';
 import InstagramGallery from '@/components/InstagramGallery';
 import IngredientSpotlight from '@/components/IngredientSpotlight';
 import BestSellers from '@/components/BestSellers';
@@ -74,7 +75,14 @@ export default async function Home({ params }: Props) {
   const heroTitle = homeData?.hero?.[currentLocale]?.title || (currentLocale === 'zh' ? '手工糕点' : 'Artisan Pastries');
   const heroSubtitle = homeData?.hero?.[currentLocale]?.subtitle || (currentLocale === 'zh' ? '用心制作' : 'Crafted with Love');
   const heroButton = homeData?.hero?.[currentLocale]?.buttonText || (currentLocale === 'zh' ? '浏览菜单' : 'Browse Menu');
-  const heroImage = homeData?.heroImage || '/images/hero-santorini-v5.png';
+  const heroImage = homeData?.heroImage || '/images/hero-kitchen.png';
+  // Cohesive warm set for the fade loop; the admin's chosen heroImage leads.
+  const heroImages = Array.from(new Set([
+    heroImage,
+    '/images/hero-kitchen.png',
+    '/images/products/1770219682977.png',
+    '/images/products/1770218898793.png',
+  ])).slice(0, 4);
 
   const storyTitle = storyData?.[currentLocale]?.title || (currentLocale === 'zh' ? '我们的故事' : 'Our Story');
   const storyContent = storyData?.[currentLocale]?.content || "Coming soon...";
@@ -99,8 +107,7 @@ export default async function Home({ params }: Props) {
         <div className="hl-hero-inner">
           <div className="hl-arch-wrap">
             <div className="hl-arch">
-              <img src={heroImage} alt={heroTitle} />
-              <span className="hl-arch-cap">/ {heroTitle} /</span>
+              <HeroCarousel images={heroImages} alt={heroTitle} />
             </div>
             <div className="hl-badge" aria-hidden="true">
               <svg viewBox="0 0 200 200" className="hl-badge-svg">
@@ -162,17 +169,13 @@ export default async function Home({ params }: Props) {
             box-shadow: 0 34px 60px -30px rgba(80,60,40,0.4);
           }
           .hl-arch img { width: 100%; height: 100%; object-fit: cover; display: block; }
-          .hl-arch-cap {
-            position: absolute;
-            left: 50%; bottom: 30%;
-            transform: translateX(-50%);
-            color: rgba(255,255,255,0.94);
-            font-family: var(--font-playfair), serif;
-            font-style: italic;
-            font-size: 1.05rem;
-            letter-spacing: 0.01em;
-            text-shadow: 0 2px 14px rgba(0,0,0,0.45);
-            white-space: nowrap;
+          .hl-carousel { position: absolute; inset: 0; }
+          .hl-carousel-img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: opacity 2.5s ease-in-out;
+            user-select: none;
           }
           .hl-badge {
             position: absolute;
@@ -194,7 +197,7 @@ export default async function Home({ params }: Props) {
 
           .hl-headline {
             font-family: var(--font-playfair), serif;
-            font-weight: 500;
+            font-weight: 400;
             font-style: italic;
             color: #8a6a4a;
             font-size: clamp(2.5rem, 6vw, 4.3rem);
