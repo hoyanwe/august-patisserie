@@ -45,19 +45,22 @@ export default function Navigation() {
             <div id="mobile-nav" aria-hidden={!isOpen} className={`mobile-nav ${isOpen ? 'open' : ''}`} style={{
                 position: 'fixed',
                 top: '0',
-                right: isOpen ? '0' : '-100%',
+                right: 0,
                 width: '70%',
+                maxWidth: '320px',
                 height: '100vh',
                 background: 'var(--color-cream)',
                 boxShadow: '-5px 0 15px rgba(0,0,0,0.1)',
                 padding: '5rem 2rem',
                 flexDirection: 'column',
                 gap: '2rem',
-                transition: 'right 0.3s ease',
+                // Slide with a transform (not `right`) so the closed drawer never
+                // extends the page width / creates a horizontal scrollbar.
+                transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
+                transition: 'transform 0.3s ease',
                 zIndex: 101,
                 display: 'flex',
-                // When closed, keep it out of the tab order and off the a11y tree
-                // (it sits off-screen but was still focusable on desktop).
+                // When closed, keep it out of the tab order and off the a11y tree.
                 visibility: isOpen ? 'visible' : 'hidden',
             }}>
                 <Link href="/menu" onClick={() => setIsOpen(false)} style={{ fontSize: '1.2rem', fontWeight: 600 }}>{t('menu')}</Link>
